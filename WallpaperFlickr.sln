@@ -1,0 +1,20 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 10.00
+# Visual Studio 2008
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WallpaperFlickr", "WallpaperFlickr\WallpaperFlickr.csproj", "{0B0A6460-E213-4C02-B756-4CF952380073}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{0B0A6460-E213-4C02-B756-4CF952380073}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0B0A6460-E213-4C02-B756-4CF952380073}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0B0A6460-E213-4C02-B756-4CF952380073}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0B0A6460-E213-4C02-B756-4CF952380073}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
