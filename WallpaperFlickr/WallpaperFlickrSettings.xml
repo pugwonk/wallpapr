@@ -4,7 +4,10 @@
   <frequency>1</frequency>
   <interval>days</interval>
   <tags>soccer</tags>
+  <userid></userid>
   <apikey>00c6fb6042c3afe535a6862e0995df78</apikey>
-  <username></username>
   <size>800x600</size>
+  <username></username>
+  <tagmode></tagmode>
+  <orderby></orderby>
 </settings>
