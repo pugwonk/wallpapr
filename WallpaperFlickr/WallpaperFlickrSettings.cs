@@ -13,10 +13,24 @@ namespace WallpaperFlickr {
             set { if (_ApiKey != value) { _ApiKey = value; Dirty = true; } }
         }
 
+        private bool _SearchOrFaves = false;
+        public bool SearchOrFaves
+        {
+            get { return _SearchOrFaves; }
+            set { if (_SearchOrFaves != value) { _SearchOrFaves = value; Dirty = true; } }
+        }
+
         private string _UserId = "";
         public string UserId {
             get { return _UserId; }
             set { if (_UserId != value) { _UserId = value; Dirty = true; } }
+        }
+
+        private string _FaveUserId = "";
+        public string FaveUserId
+        {
+            get { return _FaveUserId; }
+            set { if (_FaveUserId != value) { _FaveUserId = value; Dirty = true; } }
         }
 
         private string _Tags = "";
@@ -72,24 +86,31 @@ namespace WallpaperFlickr {
             XmlDocument xml = new XmlDocument();
             xml.Load("WallpaperFlickrSettings.xml");
             _ApiKey = xml.GetElementsByTagName("apikey").Item(0).InnerText;
-            _UserId = xml.GetElementsByTagName("userid").Item(0).InnerText;
+            if (xml.GetElementsByTagName("userid").Count > 0)
+                _UserId = xml.GetElementsByTagName("userid").Item(0).InnerText;
+            if (xml.GetElementsByTagName("faveuserid").Count > 0)
+                _FaveUserId = xml.GetElementsByTagName("faveuserid").Item(0).InnerText;
+            if (xml.GetElementsByTagName("searchorfaves").Count > 0)
+                _SearchOrFaves = bool.Parse(xml.GetElementsByTagName("searchorfaves").Item(0).InnerText);
             _Interval = xml.GetElementsByTagName("interval").Item(0).InnerText;
             _Tags = xml.GetElementsByTagName("tags").Item(0).InnerText;
-            _TagMode = xml.GetElementsByTagName("tagmode").Item(0).InnerText;
-            _OrderBy = xml.GetElementsByTagName("orderby").Item(0).InnerText;
+            if (xml.GetElementsByTagName("tagmode").Count > 0)
+                _TagMode = xml.GetElementsByTagName("tagmode").Item(0).InnerText;
+            if (xml.GetElementsByTagName("orderby").Count > 0)
+                _OrderBy = xml.GetElementsByTagName("orderby").Item(0).InnerText;
             try {
                 _Position = xml.GetElementsByTagName("position").Item(0).InnerText;
-            } catch (Exception ex) {
+            } catch (Exception) {
                 _Position = "Stretched";
             }
             try {
                 _Frequency = Convert.ToInt32(xml.GetElementsByTagName("frequency").Item(0).InnerText);
-            } catch (Exception ex) {
+            } catch (Exception) {
                 _Frequency = 1;
             }
             try {
                 _LastChange = Convert.ToDateTime(xml.GetElementsByTagName("lastchange").Item(0).InnerText);
-            } catch (Exception ex) {
+            } catch (Exception) {
                 _LastChange = DateTime.MinValue;
             }
             xml = null;
@@ -108,6 +129,8 @@ namespace WallpaperFlickr {
                 tw.WriteElementString("tags", _Tags.Trim());
                 tw.WriteElementString("apikey", _ApiKey.Trim());
                 tw.WriteElementString("userid", _UserId.Trim());
+                tw.WriteElementString("searchorfaves", _SearchOrFaves.ToString());
+                tw.WriteElementString("faveuserid", _FaveUserId.Trim());
                 tw.WriteElementString("tagmode", _TagMode);
                 tw.WriteElementString("orderby", _OrderBy);
                 tw.WriteElementString("position", _Position);

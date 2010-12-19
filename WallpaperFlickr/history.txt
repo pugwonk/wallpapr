@@ -11,3 +11,9 @@
 2010-06-22 CLR: Added error handling around queries that return zero photographs
 2010-06-22 CLR: Changed "order by" to "pick from" in UI
 2010-07-19 CLR: Added "this photo on Flickr" menu item
+2010-08-23 CLR: Made settings save when you click "OK" (umm, duh)
+2010-08-23 CLR: Added ability to pick from favourites for a particular user instead of doing a search
+2010-08-25 CLR: New wallpaper gotten as soon as app is started
+2010-08-25 CLR: "Original" file now used if available
+2010-09-03 CLR: Three-stage icons now in place (loading/error/ok)
+2010-09-03 CLR: Tooltip on task bar now shows info about current photo

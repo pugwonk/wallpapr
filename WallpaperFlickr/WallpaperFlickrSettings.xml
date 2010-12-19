@@ -1,13 +1,14 @@
-<?xml version="1.0" encoding="utf-8" ?>
+﻿<?xml version="1.0" encoding="utf-8" standalone="no"?>
 <settings>
-  <lastchange>1/1/2000 11:59:59 PM</lastchange>
-  <frequency>1</frequency>
-  <interval>days</interval>
-  <tags>soccer</tags>
-  <userid></userid>
+  <lastchange>2010-12-18 22:12:44</lastchange>
+  <frequency>6</frequency>
+  <interval>hours</interval>
+  <tags>sunset</tags>
   <apikey>00c6fb6042c3afe535a6862e0995df78</apikey>
-  <size>800x600</size>
-  <username></username>
-  <tagmode></tagmode>
-  <orderby></orderby>
+  <userid />
+  <searchorfaves>True</searchorfaves>
+  <faveuserid />
+  <tagmode>any</tagmode>
+  <orderby>Most Interesting</orderby>
+  <position>Stretched</position>
 </settings>
