@@ -45,6 +45,10 @@ namespace WallpaperFlickr {
             txtApiKey.Text = settings.ApiKey;
             txtTags.Text = settings.Tags;
             txtUserId.Text = settings.UserId;
+            txtFaveUserId.Text = settings.FaveUserId;
+            rbSearch.Checked = settings.SearchOrFaves;
+            rbFaves.Checked = !rbSearch.Checked;
+            EnableSearchTypes();
 
             rbAllTags.Checked = false;
             rbAnyTags.Checked = false;
@@ -63,6 +67,8 @@ namespace WallpaperFlickr {
             if (settings.ApiKey.Equals(string.Empty)) {
                 MessageBox.Show("Please read the readme.txt and follow the instructions to get an API key.");
             }
+
+            GetNewWallpaper();
         }
 
         private void GetNewWallpaperBACKUPDELETEME() {
@@ -88,7 +94,7 @@ namespace WallpaperFlickr {
                 { // Exception handler added by CLR 2010-06-11
                     fuser = flickr.PeopleFindByUserName(UserName.Trim());
                 }
-                catch (Exception ex)
+                catch (Exception)
                 {
                     return;
                 }
@@ -104,7 +110,7 @@ namespace WallpaperFlickr {
             FlickrNet.PhotoCollection photos = null;
             try {
                 photos = flickr.PhotosSearch(options);
-            } catch (Exception ex) {
+            } catch (Exception) {
                 //MessageBox.Show(ex.Message);
                 return;
             }
@@ -207,54 +213,81 @@ namespace WallpaperFlickr {
 
         private void GetNewWallpaper()
         {
-
+            notifyIcon1.Text = "Retrieving next picture...";
+            notifyIcon1.Icon = WallpaperFlickr.Properties.Resources.flickrwait;
+            
             if (settings.ApiKey.Equals(string.Empty))
             {
+                notifyIcon1.Text = "API key missing";
+                notifyIcon1.Icon = WallpaperFlickr.Properties.Resources.flickrbad;
                 return;
             }
 
             FlickrNet.Flickr flickr = new FlickrNet.Flickr();
             flickr.ApiKey = settings.ApiKey;
 
-            FlickrNet.PhotoSearchOptions options = new FlickrNet.PhotoSearchOptions();
-            if (!settings.Tags.Trim().Equals(string.Empty))
+            FlickrNet.PhotoCollection photos = null;
+            if (settings.SearchOrFaves) // doing normal search
             {
-                options.Tags = settings.Tags;
-                options.TagMode = GetTagMode();
-            }
-            if (!settings.UserId.Trim().Equals(string.Empty))
-            {
-                FlickrNet.FoundUser fuser;
-                string UserName = "";
-                string[] AllUserNames = settings.UserId.Split(',');
-                UserName = AllUserNames[new Random().Next(0, AllUserNames.GetUpperBound(0) + 1)];
+                FlickrNet.PhotoSearchOptions options = new FlickrNet.PhotoSearchOptions();
+                if (!settings.Tags.Trim().Equals(string.Empty))
+                {
+                    options.Tags = settings.Tags;
+                    options.TagMode = GetTagMode();
+                }
+                if (!settings.UserId.Trim().Equals(string.Empty))
+                {
+                    FlickrNet.FoundUser fuser;
+                    string UserName = "";
+                    string[] AllUserNames = settings.UserId.Split(',');
+                    UserName = AllUserNames[new Random().Next(0, AllUserNames.GetUpperBound(0) + 1)];
+                    try
+                    { // Exception handler added by CLR 2010-06-11
+                        fuser = flickr.PeopleFindByUserName(UserName.Trim());
+                    }
+                    catch (Exception ex)
+                    {
+                        notifyIcon1.Text = ex.Message.Substring(0,63);
+                        notifyIcon1.Icon = WallpaperFlickr.Properties.Resources.flickrbad;
+                        return;
+                    }
+                    if (!fuser.UserId.Equals(string.Empty))
+                    {
+                        options.UserId = fuser.UserId;
+                    }
+                }
+                options.PrivacyFilter = FlickrNet.PrivacyFilter.PublicPhotos;
+                options.SortOrder = GetSortOrder();
+                options.PerPage = 365;
+
                 try
-                { // Exception handler added by CLR 2010-06-11
-                    fuser = flickr.PeopleFindByUserName(UserName.Trim());
+                {
+                    photos = flickr.PhotosSearch(options);
+                    //photos = flickr.PhotosGetRecent(); // this was me trying to do Explore stuff, but failed
                 }
                 catch (Exception ex)
                 {
+                    //MessageBox.Show(ex.Message);
+                    notifyIcon1.Text = ex.Message.Substring(0,63);
+                    notifyIcon1.Icon = WallpaperFlickr.Properties.Resources.flickrbad;
                     return;
                 }
-                if (!fuser.UserId.Equals(string.Empty))
+                options = null;
+            }
+            else // getting someone's favourites
+            {
+                try
                 {
-                    options.UserId = fuser.UserId;
+                    FlickrNet.FoundUser fuser;
+                    fuser = flickr.PeopleFindByUserName(settings.FaveUserId);
+                    photos = flickr.FavoritesGetPublicList(fuser.UserId);
                 }
-            }
-            options.PrivacyFilter = FlickrNet.PrivacyFilter.PublicPhotos;
-            options.SortOrder = GetSortOrder();
-            options.PerPage = 365;
-
-
-            FlickrNet.PhotoCollection photos = null;
-            try
-            {
-                photos = flickr.PhotosSearch(options);
-            }
-            catch (Exception ex)
-            {
-                //MessageBox.Show(ex.Message);
-                return;
+                catch (Exception ex)
+                {
+                    notifyIcon1.Text = ex.Message.Substring(0,63);
+                    notifyIcon1.Icon = WallpaperFlickr.Properties.Resources.flickrbad;
+                    return;
+                }
             }
 
             clsWallpaper wallpaper = new clsWallpaper();
@@ -266,21 +299,25 @@ namespace WallpaperFlickr {
             else
             {
                 int chosePhoto = pn.Next(0, photos.Count);
-                //chosePhoto = 1;
-
-                //wallpaper.URL = photos.PhotoCollection[chosePhoto].LargeUrl;
-                //wallpaper.URL = photos.PhotoCollection[chosePhoto].MediumUrl;
-                bool LoadedWallpaper = wallpaper.Load(photos[chosePhoto].LargeUrl, settings, 
+                //FlickrNet.Sizes fs = flickr.PhotosGetSizes("4570943273");
+                FlickrNet.SizeCollection fs = flickr.PhotosGetSizes(photos[chosePhoto].PhotoId);
+                // Load the last size (which should be "Original"). Doing all this
+                // because photo.OriginalURL just causes an exception
+                bool LoadedWallpaper = wallpaper.Load(fs[fs.Count-1].Source, settings, 
                     getDisplayStyle(), Application.ExecutablePath, photos[chosePhoto].WebUrl);
-                if (!LoadedWallpaper) // try medium
-                    LoadedWallpaper = wallpaper.Load(photos[chosePhoto].MediumUrl, settings,
-                        getDisplayStyle(), Application.ExecutablePath, photos[chosePhoto].WebUrl);
+
+                FlickrNet.Person fuser;
+                fuser = flickr.PeopleGetInfo(photos[chosePhoto].UserId);
+                string notifyText = fuser.UserName +
+                    ": " + photos[chosePhoto].Title;
+
+                notifyIcon1.Text = notifyText.Substring(0, Math.Min(63, notifyText.Length));
             }
 
-            options = null;
             wallpaper = null;
             flickr = null;
             photos = null;
+            notifyIcon1.Icon = WallpaperFlickr.Properties.Resources.flickr;
         }
 
 
@@ -360,6 +397,7 @@ namespace WallpaperFlickr {
             settings.Interval = ddInterval.Text;
             settings.OrderBy = ddOrderBy.Text;
             settings.Position = ddPosition.Text;
+            settings.SearchOrFaves = rbSearch.Checked;
             if (rbAllTags.Checked) {
                 settings.TagMode = "all";
             } else {
@@ -367,6 +405,7 @@ namespace WallpaperFlickr {
             }
             settings.Tags = txtTags.Text;
             settings.UserId = txtUserId.Text;
+            settings.FaveUserId = txtFaveUserId.Text;
             settings.SaveSettings();
         }
 
@@ -386,12 +425,31 @@ namespace WallpaperFlickr {
 
         private void btnOK_Click(object sender, EventArgs e)
         {
+            doSaveSettings();
             Hide();
+            GetNewWallpaper();
         }
 
         private void thisPhotoOnFlickrcomToolStripMenuItem_Click(object sender, EventArgs e)
         {
             System.Diagnostics.Process.Start(settings.WebURL);
+        }
+
+        private void rbSearch_CheckedChanged(object sender, EventArgs e)
+        {
+            EnableSearchTypes();
+        }
+
+        private void EnableSearchTypes()
+        {
+            label5.Enabled = label7.Enabled = txtTags.Enabled = rbAllTags.Enabled = rbAnyTags.Enabled
+                = label1.Enabled = ddOrderBy.Enabled = label6.Enabled = txtUserId.Enabled = rbSearch.Checked;
+            txtFaveUserId.Enabled = rbFaves.Checked;
+        }
+
+        private void rbFaves_CheckedChanged(object sender, EventArgs e)
+        {
+            EnableSearchTypes();
         }
     }
 }

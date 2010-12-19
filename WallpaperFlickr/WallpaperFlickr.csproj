@@ -109,6 +109,8 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="flickr.ico" />
+    <Content Include="flickrbad.ico" />
+    <Content Include="flickrwait.ico" />
     <Content Include="history.txt" />
     <Content Include="WallpaperFlickrSettings.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
