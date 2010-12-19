@@ -59,9 +59,9 @@
     <UseVSHostingProcess>false</UseVSHostingProcess>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="FlickrNet, Version=2.1.5.19851, Culture=neutral, PublicKeyToken=2491df59efa5d132">
+    <Reference Include="FlickrNet, Version=3.1.4000.0, Culture=neutral, PublicKeyToken=2491df59efa5d132, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\dev-toolkits\FlickrNetDlls2.1.5\Release\FlickrNet.dll</HintPath>
+      <HintPath>.\FlickrNet.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -110,7 +110,9 @@
   <ItemGroup>
     <Content Include="flickr.ico" />
     <Content Include="history.txt" />
-    <Content Include="WallpaperFlickrSettings.xml" />
+    <Content Include="WallpaperFlickrSettings.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Framework.2.0">

@@ -86,7 +86,7 @@ namespace WallpaperFlickr {
                 UserName = AllUserNames[new Random().Next(0, AllUserNames.GetUpperBound(0) + 1)];
                 try
                 { // Exception handler added by CLR 2010-06-11
-                    fuser = flickr.PeopleFindByUsername(UserName.Trim());
+                    fuser = flickr.PeopleFindByUserName(UserName.Trim());
                 }
                 catch (Exception ex)
                 {
@@ -101,7 +101,7 @@ namespace WallpaperFlickr {
             options.PerPage = 365;
 
 
-            FlickrNet.Photos photos = null;
+            FlickrNet.PhotoCollection photos = null;
             try {
                 photos = flickr.PhotosSearch(options);
             } catch (Exception ex) {
@@ -112,8 +112,8 @@ namespace WallpaperFlickr {
 
             clsWallpaper wallpaper = new clsWallpaper();
 
-            for(int i = 0; i < photos.PhotoCollection.Length; i++) {
-                wallpaper.URL = photos.PhotoCollection[i].LargeUrl;
+            for(int i = 0; i < photos.Count; i++) {
+                wallpaper.URL = photos[i].LargeUrl;
                 if(!wallpaper.AlreadyDownloaded()) {
 
                     /* StringBuilder sb = new StringBuilder();
@@ -230,7 +230,7 @@ namespace WallpaperFlickr {
                 UserName = AllUserNames[new Random().Next(0, AllUserNames.GetUpperBound(0) + 1)];
                 try
                 { // Exception handler added by CLR 2010-06-11
-                    fuser = flickr.PeopleFindByUsername(UserName.Trim());
+                    fuser = flickr.PeopleFindByUserName(UserName.Trim());
                 }
                 catch (Exception ex)
                 {
@@ -246,7 +246,7 @@ namespace WallpaperFlickr {
             options.PerPage = 365;
 
 
-            FlickrNet.Photos photos = null;
+            FlickrNet.PhotoCollection photos = null;
             try
             {
                 photos = flickr.PhotosSearch(options);
@@ -261,20 +261,20 @@ namespace WallpaperFlickr {
 
             Random pn = new Random();
 
-            if (photos.PhotoCollection.Length == 0)
+            if (photos.Count == 0)
                 MessageBox.Show("Specified parameters return no photographs from Flickr.", "WallpaperFlickr");
             else
             {
-                int chosePhoto = pn.Next(0, photos.PhotoCollection.Length);
+                int chosePhoto = pn.Next(0, photos.Count);
                 //chosePhoto = 1;
 
                 //wallpaper.URL = photos.PhotoCollection[chosePhoto].LargeUrl;
                 //wallpaper.URL = photos.PhotoCollection[chosePhoto].MediumUrl;
-                bool LoadedWallpaper = wallpaper.Load(photos.PhotoCollection[chosePhoto].LargeUrl, settings, 
-                    getDisplayStyle(), Application.ExecutablePath, photos.PhotoCollection[chosePhoto].WebUrl);
+                bool LoadedWallpaper = wallpaper.Load(photos[chosePhoto].LargeUrl, settings, 
+                    getDisplayStyle(), Application.ExecutablePath, photos[chosePhoto].WebUrl);
                 if (!LoadedWallpaper) // try medium
-                    LoadedWallpaper = wallpaper.Load(photos.PhotoCollection[chosePhoto].MediumUrl, settings,
-                        getDisplayStyle(), Application.ExecutablePath, photos.PhotoCollection[chosePhoto].WebUrl);
+                    LoadedWallpaper = wallpaper.Load(photos[chosePhoto].MediumUrl, settings,
+                        getDisplayStyle(), Application.ExecutablePath, photos[chosePhoto].WebUrl);
             }
 
             options = null;
@@ -294,14 +294,14 @@ namespace WallpaperFlickr {
         private FlickrNet.PhotoSearchSortOrder GetSortOrder() {
             switch (settings.OrderBy) {
                 //case "Date Posted Asc": return FlickrNet.PhotoSearchSortOrder.DatePostedAsc;
-                case "Newly Posted": return FlickrNet.PhotoSearchSortOrder.DatePostedDesc;
+                case "Newly Posted": return FlickrNet.PhotoSearchSortOrder.DatePostedDescending;
                 //case "Date Taken Asc": return FlickrNet.PhotoSearchSortOrder.DateTakenAsc;
-                case "Most Recently Taken": return FlickrNet.PhotoSearchSortOrder.DateTakenDesc;
+                case "Most Recently Taken": return FlickrNet.PhotoSearchSortOrder.DateTakenDescending;
                 //case "Interestingness Asc": return FlickrNet.PhotoSearchSortOrder.InterestingnessAsc;
-                case "Most Interesting": return FlickrNet.PhotoSearchSortOrder.InterestingnessDesc;
+                case "Most Interesting": return FlickrNet.PhotoSearchSortOrder.InterestingnessDescending;
                 case "None": return FlickrNet.PhotoSearchSortOrder.None;
                 case "Relevance": return FlickrNet.PhotoSearchSortOrder.Relevance;
-                default: return FlickrNet.PhotoSearchSortOrder.InterestingnessAsc;
+                default: return FlickrNet.PhotoSearchSortOrder.InterestingnessAscending;
             }
         }
 
