@@ -7,11 +7,11 @@ using System.Resources;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("WallpaperFlickr")]
-[assembly: AssemblyDescription("Rotats wallpaper using images from Flickr")]
+[assembly: AssemblyDescription("Rotates wallpaper using images from Flickr")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("Rush Frisby http://dotnetrush.blogspot.com")]
+[assembly: AssemblyCompany("")]
 [assembly: AssemblyProduct("WallpaperFlickr")]
-[assembly: AssemblyCopyright("Copyright ©  2006 Rush Frisby")]
+[assembly: AssemblyCopyright("")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -30,6 +30,6 @@ using System.Resources;
 //      Build Number
 //      Revision
 //
-[assembly: AssemblyVersion("1.0.0.0")]
+[assembly: AssemblyVersion("1.1.0.0")]
 [assembly: AssemblyFileVersion("1.0.0.0")]
-[assembly: NeutralResourcesLanguageAttribute("nl-NL")]
+[assembly: NeutralResourcesLanguageAttribute("en-US")]
