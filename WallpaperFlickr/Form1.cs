@@ -247,7 +247,7 @@ namespace WallpaperFlickr {
                     }
                     catch (Exception ex)
                     {
-                        notifyIcon1.Text = ex.Message.Substring(0,63);
+                        notifyIcon1.Text = ex.Message.Substring(0,Math.Min(ex.Message.Length,63));
                         notifyIcon1.Icon = WallpaperFlickr.Properties.Resources.flickrbad;
                         return;
                     }
@@ -268,7 +268,7 @@ namespace WallpaperFlickr {
                 catch (Exception ex)
                 {
                     //MessageBox.Show(ex.Message);
-                    notifyIcon1.Text = ex.Message.Substring(0,63);
+                    notifyIcon1.Text = ex.Message.Substring(0, Math.Min(ex.Message.Length, 63));
                     notifyIcon1.Icon = WallpaperFlickr.Properties.Resources.flickrbad;
                     return;
                 }
@@ -284,7 +284,7 @@ namespace WallpaperFlickr {
                 }
                 catch (Exception ex)
                 {
-                    notifyIcon1.Text = ex.Message.Substring(0,63);
+                    notifyIcon1.Text = ex.Message.Substring(0, Math.Min(ex.Message.Length, 63));
                     notifyIcon1.Icon = WallpaperFlickr.Properties.Resources.flickrbad;
                     return;
                 }
