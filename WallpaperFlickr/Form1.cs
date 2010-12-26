@@ -307,9 +307,18 @@ namespace WallpaperFlickr {
                     getDisplayStyle(), Application.ExecutablePath, photos[chosePhoto].WebUrl);
 
                 FlickrNet.Person fuser;
-                fuser = flickr.PeopleGetInfo(photos[chosePhoto].UserId);
-                string notifyText = fuser.UserName +
-                    ": " + photos[chosePhoto].Title;
+                string notifyText = "";
+                try
+                {
+                    fuser = flickr.PeopleGetInfo(photos[chosePhoto].UserId);
+                    notifyText = fuser.UserName +
+                        ": " + photos[chosePhoto].Title;
+                }
+                catch (Exception ex)
+                {
+                    notifyText = ex.Message;
+                    notifyIcon1.Icon = WallpaperFlickr.Properties.Resources.flickrbad;
+                }
 
                 notifyIcon1.Text = notifyText.Substring(0, Math.Min(63, notifyText.Length));
             }
