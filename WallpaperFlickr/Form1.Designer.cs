@@ -55,6 +55,8 @@ namespace WallpaperFlickr {
             this.label3 = new System.Windows.Forms.Label();
             this.ddPosition = new System.Windows.Forms.ComboBox();
             this.btnOK = new System.Windows.Forms.Button();
+            this.lbVersion = new System.Windows.Forms.Label();
+            this.llWebsite = new System.Windows.Forms.LinkLabel();
             ((System.ComponentModel.ISupportInitialize)(this.numFrequency)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -280,33 +282,33 @@ namespace WallpaperFlickr {
             this.thisPhotoOnFlickrcomToolStripMenuItem,
             this.exitToolStripMenuItem});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(200, 92);
+            this.contextMenuStrip1.Size = new System.Drawing.Size(214, 92);
             // 
             // getNewWallpaperToolStripMenuItem
             // 
             this.getNewWallpaperToolStripMenuItem.Name = "getNewWallpaperToolStripMenuItem";
-            this.getNewWallpaperToolStripMenuItem.Size = new System.Drawing.Size(199, 22);
+            this.getNewWallpaperToolStripMenuItem.Size = new System.Drawing.Size(213, 22);
             this.getNewWallpaperToolStripMenuItem.Text = "Settings...";
             this.getNewWallpaperToolStripMenuItem.Click += new System.EventHandler(this.getNewWallpaperToolStripMenuItem_Click);
             // 
             // getNewWallpaperToolStripMenuItem1
             // 
             this.getNewWallpaperToolStripMenuItem1.Name = "getNewWallpaperToolStripMenuItem1";
-            this.getNewWallpaperToolStripMenuItem1.Size = new System.Drawing.Size(199, 22);
+            this.getNewWallpaperToolStripMenuItem1.Size = new System.Drawing.Size(213, 22);
             this.getNewWallpaperToolStripMenuItem1.Text = "Get new wallpaper";
             this.getNewWallpaperToolStripMenuItem1.Click += new System.EventHandler(this.getNewWallpaperToolStripMenuItem1_Click);
             // 
             // thisPhotoOnFlickrcomToolStripMenuItem
             // 
             this.thisPhotoOnFlickrcomToolStripMenuItem.Name = "thisPhotoOnFlickrcomToolStripMenuItem";
-            this.thisPhotoOnFlickrcomToolStripMenuItem.Size = new System.Drawing.Size(199, 22);
+            this.thisPhotoOnFlickrcomToolStripMenuItem.Size = new System.Drawing.Size(213, 22);
             this.thisPhotoOnFlickrcomToolStripMenuItem.Text = "This photo on flickr.com...";
             this.thisPhotoOnFlickrcomToolStripMenuItem.Click += new System.EventHandler(this.thisPhotoOnFlickrcomToolStripMenuItem_Click);
             // 
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(199, 22);
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(213, 22);
             this.exitToolStripMenuItem.Text = "Exit";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
             // 
@@ -341,7 +343,7 @@ namespace WallpaperFlickr {
             // 
             // btnOK
             // 
-            this.btnOK.Location = new System.Drawing.Point(173, 287);
+            this.btnOK.Location = new System.Drawing.Point(84, 289);
             this.btnOK.Name = "btnOK";
             this.btnOK.Size = new System.Drawing.Size(105, 37);
             this.btnOK.TabIndex = 15;
@@ -349,16 +351,39 @@ namespace WallpaperFlickr {
             this.btnOK.UseVisualStyleBackColor = true;
             this.btnOK.Click += new System.EventHandler(this.btnOK_Click);
             // 
+            // lbVersion
+            // 
+            this.lbVersion.Location = new System.Drawing.Point(340, 289);
+            this.lbVersion.Name = "lbVersion";
+            this.lbVersion.Size = new System.Drawing.Size(108, 13);
+            this.lbVersion.TabIndex = 16;
+            this.lbVersion.Text = "label8";
+            this.lbVersion.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            // 
+            // llWebsite
+            // 
+            this.llWebsite.AutoSize = true;
+            this.llWebsite.Location = new System.Drawing.Point(274, 309);
+            this.llWebsite.Name = "llWebsite";
+            this.llWebsite.Size = new System.Drawing.Size(174, 13);
+            this.llWebsite.TabIndex = 17;
+            this.llWebsite.TabStop = true;
+            this.llWebsite.Text = "http://flickrwallpaper.codeplex.com";
+            this.llWebsite.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            this.llWebsite.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.llWebsite_LinkClicked);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(460, 336);
+            this.ClientSize = new System.Drawing.Size(460, 338);
+            this.Controls.Add(this.llWebsite);
+            this.Controls.Add(this.lbVersion);
             this.Controls.Add(this.ddPosition);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.linkLabel1);
-            this.Controls.Add(this.btnOK);
             this.Controls.Add(this.label4);
+            this.Controls.Add(this.btnOK);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.ddInterval);
             this.Controls.Add(this.numFrequency);
@@ -418,6 +443,8 @@ namespace WallpaperFlickr {
         private System.Windows.Forms.TextBox txtTags;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.TextBox txtUserId;
+        private System.Windows.Forms.Label lbVersion;
+        private System.Windows.Forms.LinkLabel llWebsite;
 
     }
 }
