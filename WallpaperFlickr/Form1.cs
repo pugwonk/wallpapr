@@ -156,7 +156,11 @@ namespace WallpaperFlickr {
             Random pn = new Random();
 
             if (photos.Count == 0)
-                MessageBox.Show("Specified parameters return no photographs from Flickr.", "WallpaperFlickr");
+            {
+                notifyIcon1.Text = "Specified parameters return no photographs from Flickr";
+                notifyIcon1.Icon = WallpaperFlickr.Properties.Resources.flickrbad;
+                return;
+            }
             else
             {
                 int chosePhoto = pn.Next(0, photos.Count);
@@ -173,7 +177,7 @@ namespace WallpaperFlickr {
                 }
                 // Load the last size (which should be "Original"). Doing all this
                 // because photo.OriginalURL just causes an exception
-                bool LoadedWallpaper = wallpaper.Load(fs[fs.Count-1].Source, settings, 
+                bool LoadedWallpaper = wallpaper.Load(fs[fs.Count - 1].Source, settings,
                     getDisplayStyle(), Application.ExecutablePath, photos[chosePhoto].WebUrl);
 
                 FlickrNet.Person fuser;
