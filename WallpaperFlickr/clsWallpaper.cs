@@ -3,6 +3,7 @@ using System;
 using System.Net;
 using System.Drawing;
 using System.IO;
+using WallpaperFlickr;
 
 
 public class clsWallpaper {
@@ -19,7 +20,7 @@ public class clsWallpaper {
 	public void AddRecord() {
         try
         {
-            StreamWriter sw = new StreamWriter("wallpapers.db", true, System.Text.Encoding.UTF8);
+            StreamWriter sw = new StreamWriter(Program.MyPath() + "\\wallpapers.db", true, System.Text.Encoding.UTF8);
             sw.WriteLine(URL);
             sw.Dispose();
         }
@@ -34,8 +35,9 @@ public class clsWallpaper {
 
     public bool AlreadyDownloaded(string url) {
         bool returnvalue = false;
-        if (File.Exists("wallpapers.db")) {
-            StreamReader sr = new StreamReader("wallpapers.db", System.Text.Encoding.UTF8);
+        if (File.Exists(Program.MyPath() + "\\wallpapers.db"))
+        {
+            StreamReader sr = new StreamReader(Program.MyPath() + "\\wallpapers.db", System.Text.Encoding.UTF8);
             while (sr.Peek() >= 0) {
                 if (sr.ReadLine().ToLower().Trim() == url.ToLower().Trim()) {
                     returnvalue = true;
@@ -57,14 +59,14 @@ public class clsWallpaper {
         string FileName = URL.Substring(spot + 1, URL.Length - spot - 1);
         if (!AlreadyDownloaded())
         {
-            if (!Directory.Exists("wallpaper"))
+            if (!Directory.Exists(Program.MyPath() + "\\wallpaper"))
             {
-                Directory.CreateDirectory("wallpaper");
+                Directory.CreateDirectory(Program.MyPath() + "\\wallpaper");
             }
             WebClient wc = new WebClient();
             try
             {
-                wc.DownloadFile(URL, "wallpaper\\" + FileName);
+                wc.DownloadFile(URL, Program.MyPath() + "\\wallpaper\\" + FileName);
             }
             catch
             {
@@ -75,12 +77,12 @@ public class clsWallpaper {
 
         if (DownloadedOK)
         {
-            FileInfo fi = new FileInfo("wallpaper\\" + FileName);
+            FileInfo fi = new FileInfo(Program.MyPath() + "\\wallpaper\\" + FileName);
             //don't save those stupid photo not available images
             if (fi.Length > 3500)
             {
-                Bitmap bitmap = new Bitmap("wallpaper\\" + FileName);
-                bitmap.Save("wallpaper\\_CurrentPaper.bmp", System.Drawing.Imaging.ImageFormat.Bmp);
+                Bitmap bitmap = new Bitmap(Program.MyPath() + "\\wallpaper\\" + FileName);
+                bitmap.Save(Program.MyPath() + "\\wallpaper\\_CurrentPaper.bmp", System.Drawing.Imaging.ImageFormat.Bmp);
                 bitmap.Dispose();
 
                 AddRecord();
@@ -97,7 +99,7 @@ public class clsWallpaper {
             {
                 // CLR 2010-06-22: I don't think we actually do want to save records for the broken ones
                 //wallpaper.AddRecord();
-                File.Delete("wallpaper\\" + FileName);
+                File.Delete(Program.MyPath() + "\\wallpaper\\" + FileName);
                 Displayable = false;
             }
             fi = null;

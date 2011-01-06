@@ -40,13 +40,13 @@
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_BD78CD4CB42B158456C9304CEC3454F6"
+        "OwnerKey" = "8:_53040928732C48E28C9FA79CD9DC2633"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_53040928732C48E28C9FA79CD9DC2633"
+        "OwnerKey" = "8:_BD78CD4CB42B158456C9304CEC3454F6"
         "MsmSig" = "8:_UNDEFINED"
         }
     }
@@ -67,6 +67,14 @@
         "PrivateKeyFile" = "8:"
         "TimeStampServer" = "8:"
         "InstallerBootstrapper" = "3:2"
+            "BootstrapperCfg:{63ACBE69-63AA-4F98-B2B6-99F9E24495F2}"
+            {
+            "Enabled" = "11:TRUE"
+            "PromptEnabled" = "11:TRUE"
+            "PrerequisitesLocation" = "2:1"
+            "Url" = "8:"
+            "ComponentsUrl" = "8:"
+            }
         }
         "Release"
         {
@@ -83,6 +91,27 @@
         "PrivateKeyFile" = "8:"
         "TimeStampServer" = "8:"
         "InstallerBootstrapper" = "3:2"
+            "BootstrapperCfg:{63ACBE69-63AA-4F98-B2B6-99F9E24495F2}"
+            {
+            "Enabled" = "11:TRUE"
+            "PromptEnabled" = "11:TRUE"
+            "PrerequisitesLocation" = "2:1"
+            "Url" = "8:"
+            "ComponentsUrl" = "8:"
+                "Items"
+                {
+                    "{EDC2488A-8267-493A-A98E-7D9C3B36CDF3}:Microsoft.Net.Framework.3.5.SP1"
+                    {
+                    "Name" = "8:.NET Framework 3.5 SP1"
+                    "ProductCode" = "8:Microsoft.Net.Framework.3.5.SP1"
+                    }
+                    "{EDC2488A-8267-493A-A98E-7D9C3B36CDF3}:Microsoft.Windows.Installer.3.1"
+                    {
+                    "Name" = "8:Windows Installer 3.1"
+                    "ProductCode" = "8:Microsoft.Windows.Installer.3.1"
+                    }
+                }
+            }
         }
     }
     "Deployable"
@@ -144,7 +173,7 @@
             "ReadOnly" = "11:FALSE"
             "Hidden" = "11:FALSE"
             "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
+            "Permanent" = "11:TRUE"
             "SharedLegacy" = "11:FALSE"
             "PackageAs" = "3:1"
             "Register" = "3:1"
@@ -250,14 +279,14 @@
         {
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:WallpaperFlickr"
-        "ProductCode" = "8:{8D450C62-2779-4D90-9872-FF4B61DC97B4}"
-        "PackageCode" = "8:{E704DA80-425F-4136-B6A8-2862338E6A3F}"
+        "ProductCode" = "8:{EF151E12-4D54-484B-AC22-3CD8BA32B9B7}"
+        "PackageCode" = "8:{173779A0-BEDC-40F3-9518-023D97733D7F}"
         "UpgradeCode" = "8:{E32F97CE-1384-46C8-9819-08E75AE05091}"
         "RestartWWWService" = "11:FALSE"
         "RemovePreviousVersions" = "11:TRUE"
         "DetectNewerInstalledVersion" = "11:TRUE"
         "InstallAllUsers" = "11:FALSE"
-        "ProductVersion" = "8:1.0.0"
+        "ProductVersion" = "8:1.2.0"
         "Manufacturer" = "8:Codeplex"
         "ARPHELPTELEPHONE" = "8:"
         "ARPHELPLINK" = "8:"

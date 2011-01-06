@@ -118,7 +118,7 @@
     </Content>
     <Content Include="flickrbad.ico" />
     <Content Include="flickrwait.ico" />
-    <Content Include="history.txt" />
+    <Content Include="notes.txt" />
     <Content Include="WallpaperFlickrSettings.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
