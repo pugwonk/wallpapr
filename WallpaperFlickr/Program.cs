@@ -16,7 +16,8 @@ namespace WallpaperFlickr {
 
         public static string MyPath()
         {
-            return System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
+            //return System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
+            return Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "\\WallpaperFlickr";
         }
 
 

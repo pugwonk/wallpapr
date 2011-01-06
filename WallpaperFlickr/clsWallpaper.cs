@@ -89,10 +89,10 @@ public class clsWallpaper {
                 settings.LastChange = DateTime.Now;
                 settings.WebURL = webpath;
 
-                spot = path.LastIndexOf("\\");
-                string appPath = path.Substring(0, spot);
+                //spot = path.LastIndexOf("\\");
+                //string appPath = path.Substring(0, spot);
 
-                WallpaperFlickr.winWallpaper.ChangeWallpaper(appPath + "\\wallpaper\\_CurrentPaper.bmp", sty);
+                WallpaperFlickr.winWallpaper.ChangeWallpaper(Program.MyPath() + "\\wallpaper\\_CurrentPaper.bmp", sty);
                 Displayable = true;
             }
             else
