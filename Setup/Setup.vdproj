@@ -74,6 +74,19 @@
             "PrerequisitesLocation" = "2:1"
             "Url" = "8:"
             "ComponentsUrl" = "8:"
+                "Items"
+                {
+                    "{EDC2488A-8267-493A-A98E-7D9C3B36CDF3}:Microsoft.Net.Framework.3.5.SP1"
+                    {
+                    "Name" = "8:.NET Framework 3.5 SP1"
+                    "ProductCode" = "8:Microsoft.Net.Framework.3.5.SP1"
+                    }
+                    "{EDC2488A-8267-493A-A98E-7D9C3B36CDF3}:Microsoft.Windows.Installer.3.1"
+                    {
+                    "Name" = "8:Windows Installer 3.1"
+                    "ProductCode" = "8:Microsoft.Windows.Installer.3.1"
+                    }
+                }
             }
         }
         "Release"
@@ -166,7 +179,7 @@
             "SourcePath" = "8:..\\WallpaperFlickr\\WallpaperFlickrSettings.xml"
             "TargetName" = "8:WallpaperFlickrSettings.xml"
             "Tag" = "8:"
-            "Folder" = "8:_73F47A5C03664529814758486E597A17"
+            "Folder" = "8:_DCC731A2CB5544F18F0AFF2C9CB9085E"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
@@ -263,6 +276,28 @@
                 {
                 }
             }
+            "{1525181F-901A-416C-8A58-119130FE478E}:_8395D0F6F4D046CF87D2459E49B2EFD4"
+            {
+            "Name" = "8:#1915"
+            "AlwaysCreate" = "11:FALSE"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Property" = "8:AppDataFolder"
+                "Folders"
+                {
+                    "{9EF0B969-E518-4E46-987F-47570745A589}:_DCC731A2CB5544F18F0AFF2C9CB9085E"
+                    {
+                    "Name" = "8:WallpaperFlickr"
+                    "AlwaysCreate" = "11:FALSE"
+                    "Condition" = "8:"
+                    "Transitive" = "11:FALSE"
+                    "Property" = "8:_9F7363E6476C470CB6B6DCA7ECF8DF38"
+                        "Folders"
+                        {
+                        }
+                    }
+                }
+            }
         }
         "LaunchCondition"
         {
@@ -280,7 +315,7 @@
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:WallpaperFlickr"
         "ProductCode" = "8:{EF151E12-4D54-484B-AC22-3CD8BA32B9B7}"
-        "PackageCode" = "8:{173779A0-BEDC-40F3-9518-023D97733D7F}"
+        "PackageCode" = "8:{2EC00022-5A1F-4BF8-B2EC-6B11364C4E9F}"
         "UpgradeCode" = "8:{E32F97CE-1384-46C8-9819-08E75AE05091}"
         "RestartWWWService" = "11:FALSE"
         "RemovePreviousVersions" = "11:TRUE"

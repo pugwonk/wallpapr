@@ -291,7 +291,7 @@ namespace WallpaperFlickr {
             settings.SearchOrFaves = rbSearch.Checked;
             settings.StartWithWindows = cbStartWithWindows.Checked;
             // Also need to actually change the registry here
-            RegistryKey myKey = Registry.LocalMachine.OpenSubKey("Software\\Microsoft\\Windows\\CurrentVersion\\Run", true);
+            RegistryKey myKey = Registry.CurrentUser.OpenSubKey("Software\\Microsoft\\Windows\\CurrentVersion\\Run", true);
             if (settings.StartWithWindows)
             {
                 myKey.SetValue("WallpaperFlickr",
