@@ -57,6 +57,7 @@ namespace WallpaperFlickr {
             this.btnOK = new System.Windows.Forms.Button();
             this.lbVersion = new System.Windows.Forms.Label();
             this.llWebsite = new System.Windows.Forms.LinkLabel();
+            this.cbStartWithWindows = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.numFrequency)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -132,7 +133,7 @@ namespace WallpaperFlickr {
             this.groupBox1.Controls.Add(this.panel1);
             this.groupBox1.Controls.Add(this.rbFaves);
             this.groupBox1.Controls.Add(this.rbSearch);
-            this.groupBox1.Location = new System.Drawing.Point(7, 59);
+            this.groupBox1.Location = new System.Drawing.Point(7, 69);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(447, 214);
             this.groupBox1.TabIndex = 11;
@@ -344,7 +345,7 @@ namespace WallpaperFlickr {
             // 
             // btnOK
             // 
-            this.btnOK.Location = new System.Drawing.Point(84, 289);
+            this.btnOK.Location = new System.Drawing.Point(84, 305);
             this.btnOK.Name = "btnOK";
             this.btnOK.Size = new System.Drawing.Size(105, 37);
             this.btnOK.TabIndex = 15;
@@ -354,7 +355,7 @@ namespace WallpaperFlickr {
             // 
             // lbVersion
             // 
-            this.lbVersion.Location = new System.Drawing.Point(340, 289);
+            this.lbVersion.Location = new System.Drawing.Point(340, 317);
             this.lbVersion.Name = "lbVersion";
             this.lbVersion.Size = new System.Drawing.Size(108, 13);
             this.lbVersion.TabIndex = 16;
@@ -364,7 +365,7 @@ namespace WallpaperFlickr {
             // llWebsite
             // 
             this.llWebsite.AutoSize = true;
-            this.llWebsite.Location = new System.Drawing.Point(274, 309);
+            this.llWebsite.Location = new System.Drawing.Point(274, 337);
             this.llWebsite.Name = "llWebsite";
             this.llWebsite.Size = new System.Drawing.Size(174, 13);
             this.llWebsite.TabIndex = 17;
@@ -373,20 +374,31 @@ namespace WallpaperFlickr {
             this.llWebsite.TextAlign = System.Drawing.ContentAlignment.TopRight;
             this.llWebsite.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.llWebsite_LinkClicked);
             // 
+            // cbStartWithWindows
+            // 
+            this.cbStartWithWindows.AutoSize = true;
+            this.cbStartWithWindows.Location = new System.Drawing.Point(331, 289);
+            this.cbStartWithWindows.Name = "cbStartWithWindows";
+            this.cbStartWithWindows.Size = new System.Drawing.Size(117, 17);
+            this.cbStartWithWindows.TabIndex = 18;
+            this.cbStartWithWindows.Text = "Start with Windows";
+            this.cbStartWithWindows.UseVisualStyleBackColor = true;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(460, 338);
+            this.ClientSize = new System.Drawing.Size(460, 359);
+            this.Controls.Add(this.cbStartWithWindows);
             this.Controls.Add(this.llWebsite);
-            this.Controls.Add(this.lbVersion);
             this.Controls.Add(this.ddPosition);
+            this.Controls.Add(this.lbVersion);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.linkLabel1);
             this.Controls.Add(this.label4);
+            this.Controls.Add(this.ddInterval);
             this.Controls.Add(this.btnOK);
             this.Controls.Add(this.groupBox1);
-            this.Controls.Add(this.ddInterval);
             this.Controls.Add(this.numFrequency);
             this.Controls.Add(this.txtApiKey);
             this.Controls.Add(this.label2);
@@ -446,6 +458,7 @@ namespace WallpaperFlickr {
         private System.Windows.Forms.TextBox txtUserId;
         private System.Windows.Forms.Label lbVersion;
         private System.Windows.Forms.LinkLabel llWebsite;
+        private System.Windows.Forms.CheckBox cbStartWithWindows;
 
     }
 }

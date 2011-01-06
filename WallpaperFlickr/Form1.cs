@@ -7,6 +7,7 @@ using System.Net;
 using System.Text;
 using System.Diagnostics;
 using System.Reflection;
+using Microsoft.Win32;
 
 namespace WallpaperFlickr {
     public partial class Form1 : Form {
@@ -52,6 +53,7 @@ namespace WallpaperFlickr {
             txtFaveUserId.Text = settings.FaveUserId;
             rbSearch.Checked = settings.SearchOrFaves;
             rbFaves.Checked = !rbSearch.Checked;
+            cbStartWithWindows.Checked = settings.StartWithWindows;
             EnableSearchTypes();
 
             rbAllTags.Checked = false;
@@ -287,6 +289,26 @@ namespace WallpaperFlickr {
             settings.OrderBy = ddOrderBy.Text;
             settings.Position = ddPosition.Text;
             settings.SearchOrFaves = rbSearch.Checked;
+            settings.StartWithWindows = cbStartWithWindows.Checked;
+            // Also need to actually change the registry here
+            RegistryKey myKey = Registry.LocalMachine.OpenSubKey("Software\\Microsoft\\Windows\\CurrentVersion\\Run", true);
+            if (settings.StartWithWindows)
+            {
+                myKey.SetValue("WallpaperFlickr",
+                    System.Reflection.Assembly.GetExecutingAssembly().Location,
+                    RegistryValueKind.String);
+            }
+            else
+            {
+                try
+                {
+                    myKey.DeleteValue("WallpaperFlickr");
+                }
+                catch
+                {
+                }
+            }
+
             if (rbAllTags.Checked) {
                 settings.TagMode = "all";
             } else {

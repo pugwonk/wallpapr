@@ -1,6 +1,7 @@
 using System;
 using System.Xml;
 using System.IO;
+using System.Windows.Forms;
 
 namespace WallpaperFlickr {
     public class WallpaperFlickrSettings {
@@ -18,6 +19,13 @@ namespace WallpaperFlickr {
         {
             get { return _SearchOrFaves; }
             set { if (_SearchOrFaves != value) { _SearchOrFaves = value; Dirty = true; } }
+        }
+
+        private bool _StartWithWindows = false;
+        public bool StartWithWindows
+        {
+            get { return _StartWithWindows; }
+            set { if (_StartWithWindows != value) { _StartWithWindows = value; Dirty = true; } }
         }
 
         private string _UserId = "";
@@ -84,7 +92,7 @@ namespace WallpaperFlickr {
 
         public void ReadSettings() {
             XmlDocument xml = new XmlDocument();
-            xml.Load("WallpaperFlickrSettings.xml");
+            xml.Load(Program.MyPath() + "\\WallpaperFlickrSettings.xml");
             _ApiKey = xml.GetElementsByTagName("apikey").Item(0).InnerText;
             if (xml.GetElementsByTagName("userid").Count > 0)
                 _UserId = xml.GetElementsByTagName("userid").Item(0).InnerText;
@@ -103,7 +111,16 @@ namespace WallpaperFlickr {
             } catch (Exception) {
                 _Position = "Stretched";
             }
-            try {
+            try
+            {
+                _StartWithWindows = bool.Parse(xml.GetElementsByTagName("startwithwin").Item(0).InnerText);
+            }
+            catch (Exception)
+            {
+                _Position = "Stretched";
+            }
+            try
+            {
                 _Frequency = Convert.ToInt32(xml.GetElementsByTagName("frequency").Item(0).InnerText);
             } catch (Exception) {
                 _Frequency = 1;
@@ -119,7 +136,7 @@ namespace WallpaperFlickr {
         public void SaveSettings() {
             if (Dirty)
             {
-                XmlTextWriter tw = new XmlTextWriter("WallpaperFlickrSettings.xml", System.Text.Encoding.UTF8);
+                XmlTextWriter tw = new XmlTextWriter(Program.MyPath() + "\\WallpaperFlickrSettings.xml", System.Text.Encoding.UTF8);
                 tw.Formatting = Formatting.Indented;
                 tw.WriteStartDocument(false);
                 tw.WriteStartElement("settings");
@@ -134,6 +151,7 @@ namespace WallpaperFlickr {
                 tw.WriteElementString("tagmode", _TagMode);
                 tw.WriteElementString("orderby", _OrderBy);
                 tw.WriteElementString("position", _Position);
+                tw.WriteElementString("startwithwin", _StartWithWindows.ToString());
                 tw.WriteEndElement();
                 tw.WriteEndDocument();
                 tw.Close();
