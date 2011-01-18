@@ -1,0 +1,5 @@
+﻿Before build:
+
+* Remember to build Release
+* Remember to increment BOTH ASSEMBLY AND FILE version on any assemblies that have changed (probably just the one)
+* Remember to increment setup version

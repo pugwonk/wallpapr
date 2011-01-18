@@ -47,12 +47,13 @@ namespace WallpaperFlickr {
             ddInterval.Text = settings.Interval;
             ddOrderBy.Text = settings.OrderBy;
             ddPosition.Text = settings.Position;
-            txtApiKey.Text = settings.ApiKey;
+            //txtApiKey.Text = settings.ApiKey;
             txtTags.Text = settings.Tags;
             txtUserId.Text = settings.UserId;
             txtFaveUserId.Text = settings.FaveUserId;
-            rbSearch.Checked = settings.SearchOrFaves;
-            rbFaves.Checked = !rbSearch.Checked;
+            rbSearch.Checked = (settings.SearchOrFaves == 0);
+            rbFaves.Checked = (settings.SearchOrFaves == 1);
+            rbExplore.Checked = (settings.SearchOrFaves == 2);
             cbStartWithWindows.Checked = settings.StartWithWindows;
             EnableSearchTypes();
 
@@ -93,65 +94,83 @@ namespace WallpaperFlickr {
             flickr.ApiKey = settings.ApiKey;
 
             FlickrNet.PhotoCollection photos = null;
-            if (settings.SearchOrFaves) // doing normal search
+
+            switch (settings.SearchOrFaves)
             {
-                FlickrNet.PhotoSearchOptions options = new FlickrNet.PhotoSearchOptions();
-                if (!settings.Tags.Trim().Equals(string.Empty))
-                {
-                    options.Tags = settings.Tags;
-                    options.TagMode = GetTagMode();
-                }
-                if (!settings.UserId.Trim().Equals(string.Empty))
-                {
-                    FlickrNet.FoundUser fuser;
-                    string UserName = "";
-                    string[] AllUserNames = settings.UserId.Split(',');
-                    UserName = AllUserNames[new Random().Next(0, AllUserNames.GetUpperBound(0) + 1)];
+                case 0:
+                    FlickrNet.PhotoSearchOptions options = new FlickrNet.PhotoSearchOptions();
+                    if (!settings.Tags.Trim().Equals(string.Empty))
+                    {
+                        options.Tags = settings.Tags;
+                        options.TagMode = GetTagMode();
+                    }
+                    if (!settings.UserId.Trim().Equals(string.Empty))
+                    {
+                        FlickrNet.FoundUser fuser;
+                        string UserName = "";
+                        string[] AllUserNames = settings.UserId.Split(',');
+                        UserName = AllUserNames[new Random().Next(0, AllUserNames.GetUpperBound(0) + 1)];
+                        try
+                        { // Exception handler added by CLR 2010-06-11
+                            fuser = flickr.PeopleFindByUserName(UserName.Trim());
+                        }
+                        catch (Exception ex)
+                        {
+                            FailWithError(ex);
+                            return;
+                        }
+                        if (!fuser.UserId.Equals(string.Empty))
+                        {
+                            options.UserId = fuser.UserId;
+                        }
+                    }
+                    options.PrivacyFilter = FlickrNet.PrivacyFilter.PublicPhotos;
+                    options.SortOrder = GetSortOrder();
+                    options.PerPage = 365;
+
                     try
-                    { // Exception handler added by CLR 2010-06-11
-                        fuser = flickr.PeopleFindByUserName(UserName.Trim());
+                    {
+                        photos = flickr.PhotosSearch(options);
+                        //photos = flickr.PhotosGetRecent(); // this was me trying to do Explore stuff, but failed
+                    }
+                    catch (Exception ex)
+                    {
+                        //MessageBox.Show(ex.Message);
+                        FailWithError(ex);
+                        return;
+                    }
+                    options = null;
+                    break;
+                case 1:
+                    try
+                    {
+                        FlickrNet.FoundUser fuser;
+                        fuser = flickr.PeopleFindByUserName(settings.FaveUserId);
+                        photos = flickr.FavoritesGetPublicList(fuser.UserId);
                     }
                     catch (Exception ex)
                     {
                         FailWithError(ex);
                         return;
                     }
-                    if (!fuser.UserId.Equals(string.Empty))
+                    break;
+                case 2:
+                    // do explore
+                    try
                     {
-                        options.UserId = fuser.UserId;
+                        photos = flickr.InterestingnessGetList();
                     }
-                }
-                options.PrivacyFilter = FlickrNet.PrivacyFilter.PublicPhotos;
-                options.SortOrder = GetSortOrder();
-                options.PerPage = 365;
+                    catch (Exception ex)
+                    {
+                        //MessageBox.Show(ex.Message);
+                        FailWithError(ex);
+                        return;
+                    }
+                    break;
+                default:
+                    break;
+            }
 
-                try
-                {
-                    photos = flickr.PhotosSearch(options);
-                    //photos = flickr.PhotosGetRecent(); // this was me trying to do Explore stuff, but failed
-                }
-                catch (Exception ex)
-                {
-                    //MessageBox.Show(ex.Message);
-                    FailWithError(ex);
-                    return;
-                }
-                options = null;
-            }
-            else // getting someone's favourites
-            {
-                try
-                {
-                    FlickrNet.FoundUser fuser;
-                    fuser = flickr.PeopleFindByUserName(settings.FaveUserId);
-                    photos = flickr.FavoritesGetPublicList(fuser.UserId);
-                }
-                catch (Exception ex)
-                {
-                    FailWithError(ex);
-                    return;
-                }
-            }
 
             clsWallpaper wallpaper = new clsWallpaper();
 
@@ -283,12 +302,18 @@ namespace WallpaperFlickr {
         }
 
         private void doSaveSettings() {
-            settings.ApiKey = txtApiKey.Text;
+            //settings.ApiKey = txtApiKey.Text;
             settings.Frequency = Convert.ToInt32(numFrequency.Value);
             settings.Interval = ddInterval.Text;
             settings.OrderBy = ddOrderBy.Text;
             settings.Position = ddPosition.Text;
-            settings.SearchOrFaves = rbSearch.Checked;
+            if (rbSearch.Checked)
+                settings.SearchOrFaves = 0;
+            else
+                if (rbFaves.Checked)
+                    settings.SearchOrFaves = 1;
+                else
+                    settings.SearchOrFaves = 2;
             settings.StartWithWindows = cbStartWithWindows.Checked;
             // Also need to actually change the registry here
             RegistryKey myKey = Registry.CurrentUser.OpenSubKey("Software\\Microsoft\\Windows\\CurrentVersion\\Run", true);
@@ -367,6 +392,11 @@ namespace WallpaperFlickr {
         {
             ProcessStartInfo sInfo = new ProcessStartInfo("http://flickrwallpaper.codeplex.com/");  
             Process.Start(sInfo);
+        }
+
+        private void rbExplore_CheckedChanged(object sender, EventArgs e)
+        {
+            EnableSearchTypes();
         }
     }
 }

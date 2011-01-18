@@ -14,8 +14,8 @@ namespace WallpaperFlickr {
             set { if (_ApiKey != value) { _ApiKey = value; Dirty = true; } }
         }
 
-        private bool _SearchOrFaves = false;
-        public bool SearchOrFaves
+        private int _SearchOrFaves = 2; // default to Explore
+        public int SearchOrFaves
         {
             get { return _SearchOrFaves; }
             set { if (_SearchOrFaves != value) { _SearchOrFaves = value; Dirty = true; } }
@@ -93,13 +93,29 @@ namespace WallpaperFlickr {
         public void ReadSettings() {
             XmlDocument xml = new XmlDocument();
             xml.Load(Program.MyPath() + "\\WallpaperFlickrSettings.xml");
+            //MessageBox.Show(Program.MyPath());
             _ApiKey = xml.GetElementsByTagName("apikey").Item(0).InnerText;
             if (xml.GetElementsByTagName("userid").Count > 0)
                 _UserId = xml.GetElementsByTagName("userid").Item(0).InnerText;
             if (xml.GetElementsByTagName("faveuserid").Count > 0)
                 _FaveUserId = xml.GetElementsByTagName("faveuserid").Item(0).InnerText;
             if (xml.GetElementsByTagName("searchorfaves").Count > 0)
-                _SearchOrFaves = bool.Parse(xml.GetElementsByTagName("searchorfaves").Item(0).InnerText);
+            {
+                // Silently upgrade people who had the "bool" value for this
+                string sof = xml.GetElementsByTagName("searchorfaves").Item(0).InnerText;
+                try
+                {
+                    _SearchOrFaves = int.Parse(sof);
+                }
+                catch
+                {
+                    bool OldSof = bool.Parse(sof);
+                    if (OldSof)
+                        _SearchOrFaves = 0;
+                    else
+                        _SearchOrFaves = 1;
+                }
+            }
             _Interval = xml.GetElementsByTagName("interval").Item(0).InnerText;
             _Tags = xml.GetElementsByTagName("tags").Item(0).InnerText;
             if (xml.GetElementsByTagName("tagmode").Count > 0)
