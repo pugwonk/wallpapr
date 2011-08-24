@@ -33,7 +33,7 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_BD78CD4CB42B158456C9304CEC3454F6"
+        "MsmKey" = "8:_AB716636D7B9A499F9E28E4A3FC7EF99"
         "OwnerKey" = "8:_53040928732C48E28C9FA79CD9DC2633"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -46,7 +46,7 @@
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_BD78CD4CB42B158456C9304CEC3454F6"
+        "OwnerKey" = "8:_AB716636D7B9A499F9E28E4A3FC7EF99"
         "MsmSig" = "8:_UNDEFINED"
         }
     }
@@ -146,7 +146,7 @@
                 {
                 "Name" = "8:.NET Framework"
                 "Message" = "8:[VSDNETMSG]"
-                "Version" = "8:3.5.30729"
+                "FrameworkVersion" = "8:3.5.30729"
                 "AllowLaterVersions" = "11:FALSE"
                 "InstallUrl" = "8:http://go.microsoft.com/fwlink/?LinkId=76617"
                 }
@@ -194,14 +194,14 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
-            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_BD78CD4CB42B158456C9304CEC3454F6"
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_AB716636D7B9A499F9E28E4A3FC7EF99"
             {
             "AssemblyRegister" = "3:1"
             "AssemblyIsInGAC" = "11:FALSE"
             "AssemblyAsmDisplayName" = "8:FlickrNet, Version=3.1.4000.0, Culture=neutral, PublicKeyToken=2491df59efa5d132, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
-                    "_BD78CD4CB42B158456C9304CEC3454F6"
+                    "_AB716636D7B9A499F9E28E4A3FC7EF99"
                     {
                     "Name" = "8:FlickrNet.dll"
                     "Attributes" = "3:512"
@@ -315,8 +315,9 @@
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:WallpaperFlickr"
         "ProductCode" = "8:{56D1AC6D-E188-40E7-8CCC-E31963D4D3B1}"
-        "PackageCode" = "8:{3C6F65CA-9264-47CF-AEA1-57708C21A1AC}"
+        "PackageCode" = "8:{747F726E-2E40-4A26-B6EF-5834733BF1B8}"
         "UpgradeCode" = "8:{E32F97CE-1384-46C8-9819-08E75AE05091}"
+        "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
         "RemovePreviousVersions" = "11:TRUE"
         "DetectNewerInstalledVersion" = "11:TRUE"
