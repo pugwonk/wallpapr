@@ -31,6 +31,8 @@ namespace WallpaperFlickr {
             ddPosition.Items.Add("Centered");
             ddPosition.Items.Add("Tiled");
             ddPosition.Items.Add("Stretched");
+            ddPosition.Items.Add("Fill");
+            ddPosition.Items.Add("Fit");
 
             //ddOrderBy.Items.Add("Date Posted Asc");
             ddOrderBy.Items.Add("Newly Posted");
@@ -352,7 +354,9 @@ namespace WallpaperFlickr {
                 case "centered":    return winWallpaper.Style.Centered;
                 case "tiled":       return winWallpaper.Style.Tiled;
                 case "stretched":   return winWallpaper.Style.Stretched;
-                default:            return winWallpaper.Style.Stretched;
+                case "fill":        return winWallpaper.Style.Fill;
+                case "fit":         return winWallpaper.Style.Fit;
+                default: return winWallpaper.Style.Stretched;
             }
         }
 
