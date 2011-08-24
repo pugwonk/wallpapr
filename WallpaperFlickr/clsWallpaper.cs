@@ -63,9 +63,18 @@ public class clsWallpaper {
             {
                 Directory.CreateDirectory(Program.MyPath() + "\\wallpaper");
             }
+            if (!settings.CachePics)
+            {
+                // Empty the cache folder if we're not supposed to be caching
+                DirectoryInfo dir = new DirectoryInfo(Program.MyPath() + "\\wallpaper");
+                dir.Delete(true);
+                Directory.CreateDirectory(Program.MyPath() + "\\wallpaper");
+            } 
+
             WebClient wc = new WebClient();
             try
             {
+                
                 wc.DownloadFile(URL, Program.MyPath() + "\\wallpaper\\" + FileName);
             }
             catch

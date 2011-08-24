@@ -55,6 +55,7 @@ namespace WallpaperFlickr {
             rbFaves.Checked = (settings.SearchOrFaves == 1);
             rbExplore.Checked = (settings.SearchOrFaves == 2);
             cbStartWithWindows.Checked = settings.StartWithWindows;
+            cbCache.Checked = settings.CachePics;
             EnableSearchTypes();
 
             rbAllTags.Checked = false;
@@ -315,6 +316,7 @@ namespace WallpaperFlickr {
                 else
                     settings.SearchOrFaves = 2;
             settings.StartWithWindows = cbStartWithWindows.Checked;
+            settings.CachePics = cbCache.Checked;
             // Also need to actually change the registry here
             RegistryKey myKey = Registry.CurrentUser.OpenSubKey("Software\\Microsoft\\Windows\\CurrentVersion\\Run", true);
             if (settings.StartWithWindows)
