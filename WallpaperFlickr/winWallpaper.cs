@@ -5,7 +5,7 @@ using System.Runtime.InteropServices;
 namespace WallpaperFlickr {
     public class winWallpaper {
         public enum Style : int {
-            Tiled, Centered, Stretched
+            Tiled, Centered, Stretched, Fill, Fit
         }
 
         private const int SPI_SETDESKWALLPAPER = 20;
@@ -14,7 +14,8 @@ namespace WallpaperFlickr {
 
         public static void ChangeWallpaper(string path, Style style) {
             RegistryKey key = Registry.CurrentUser.OpenSubKey("Control Panel\\Desktop", true);
-            switch (style) {
+            switch (style)
+            {
                 case Style.Stretched:
                     key.SetValue(@"WallpaperStyle", "2");
                     key.SetValue(@"TileWallpaper", "0");
@@ -26,6 +27,14 @@ namespace WallpaperFlickr {
                 case Style.Tiled:
                     key.SetValue(@"WallpaperStyle", "1");
                     key.SetValue(@"TileWallpaper", "1");
+                    break;
+                case Style.Fill:
+                    key.SetValue(@"WallpaperStyle", "10");
+                    key.SetValue(@"TileWallpaper", "0");
+                    break;
+                case Style.Fit:
+                    key.SetValue(@"WallpaperStyle", "6");
+                    key.SetValue(@"TileWallpaper", "0");
                     break;
             }
             SystemParametersInfo(SPI_SETDESKWALLPAPER, 0, path, SPIF_UPDATEINIFILE | SPIF_SENDWININICHANGE);

@@ -315,7 +315,7 @@
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:WallpaperFlickr"
         "ProductCode" = "8:{F50ACB50-1028-41B5-AA72-8E218043FBBE}"
-        "PackageCode" = "8:{A3B23A8F-478E-469B-BE97-6CDF54F92F51}"
+        "PackageCode" = "8:{834C8BB1-C814-4800-8DC8-672C284639B3}"
         "UpgradeCode" = "8:{E32F97CE-1384-46C8-9819-08E75AE05091}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
