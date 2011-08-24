@@ -57,6 +57,7 @@ namespace WallpaperFlickr {
             this.lbVersion = new System.Windows.Forms.Label();
             this.llWebsite = new System.Windows.Forms.LinkLabel();
             this.cbStartWithWindows = new System.Windows.Forms.CheckBox();
+            this.cbCache = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.numFrequency)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -339,7 +340,7 @@ namespace WallpaperFlickr {
             // 
             // btnOK
             // 
-            this.btnOK.Location = new System.Drawing.Point(84, 344);
+            this.btnOK.Location = new System.Drawing.Point(197, 343);
             this.btnOK.Name = "btnOK";
             this.btnOK.Size = new System.Drawing.Size(105, 37);
             this.btnOK.TabIndex = 15;
@@ -349,17 +350,16 @@ namespace WallpaperFlickr {
             // 
             // lbVersion
             // 
-            this.lbVersion.Location = new System.Drawing.Point(340, 356);
+            this.lbVersion.Location = new System.Drawing.Point(4, 351);
             this.lbVersion.Name = "lbVersion";
             this.lbVersion.Size = new System.Drawing.Size(108, 13);
             this.lbVersion.TabIndex = 16;
             this.lbVersion.Text = "label8";
-            this.lbVersion.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
             // llWebsite
             // 
             this.llWebsite.AutoSize = true;
-            this.llWebsite.Location = new System.Drawing.Point(274, 376);
+            this.llWebsite.Location = new System.Drawing.Point(4, 367);
             this.llWebsite.Name = "llWebsite";
             this.llWebsite.Size = new System.Drawing.Size(174, 13);
             this.llWebsite.TabIndex = 17;
@@ -378,22 +378,33 @@ namespace WallpaperFlickr {
             this.cbStartWithWindows.Text = "Start with Windows";
             this.cbStartWithWindows.UseVisualStyleBackColor = true;
             // 
+            // cbCache
+            // 
+            this.cbCache.AutoSize = true;
+            this.cbCache.Location = new System.Drawing.Point(331, 347);
+            this.cbCache.Name = "cbCache";
+            this.cbCache.Size = new System.Drawing.Size(97, 17);
+            this.cbCache.TabIndex = 19;
+            this.cbCache.Text = "Cache pictures";
+            this.cbCache.UseVisualStyleBackColor = true;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(460, 406);
+            this.ClientSize = new System.Drawing.Size(460, 390);
+            this.Controls.Add(this.cbCache);
             this.Controls.Add(this.ddPosition);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.cbStartWithWindows);
-            this.Controls.Add(this.llWebsite);
             this.Controls.Add(this.linkLabel1);
-            this.Controls.Add(this.lbVersion);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.ddInterval);
+            this.Controls.Add(this.llWebsite);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.numFrequency);
             this.Controls.Add(this.btnOK);
+            this.Controls.Add(this.lbVersion);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
@@ -402,8 +413,8 @@ namespace WallpaperFlickr {
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "WallpaperFlickr";
             this.WindowState = System.Windows.Forms.FormWindowState.Minimized;
-            this.Load += new System.EventHandler(this.Form1_Load);
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
+            this.Load += new System.EventHandler(this.Form1_Load);
             this.Resize += new System.EventHandler(this.Form1_Resize);
             ((System.ComponentModel.ISupportInitialize)(this.numFrequency)).EndInit();
             this.groupBox1.ResumeLayout(false);
@@ -450,6 +461,7 @@ namespace WallpaperFlickr {
         private System.Windows.Forms.LinkLabel llWebsite;
         private System.Windows.Forms.CheckBox cbStartWithWindows;
         private System.Windows.Forms.RadioButton rbExplore;
+        private System.Windows.Forms.CheckBox cbCache;
 
     }
 }

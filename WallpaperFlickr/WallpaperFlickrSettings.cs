@@ -21,6 +21,13 @@ namespace WallpaperFlickr {
             set { if (_SearchOrFaves != value) { _SearchOrFaves = value; Dirty = true; } }
         }
 
+        private bool _CachePics = true;
+        public bool CachePics
+        {
+            get { return _CachePics; }
+            set { if (_CachePics != value) { _CachePics = value; Dirty = true; } }
+        }
+
         private bool _StartWithWindows = false;
         public bool StartWithWindows
         {
@@ -94,7 +101,8 @@ namespace WallpaperFlickr {
             XmlDocument xml = new XmlDocument();
             xml.Load(Program.MyPath() + "\\WallpaperFlickrSettings.xml");
             //MessageBox.Show(Program.MyPath());
-            _ApiKey = xml.GetElementsByTagName("apikey").Item(0).InnerText;
+            //_ApiKey = xml.GetElementsByTagName("apikey").Item(0).InnerText;
+            _ApiKey = "e771a253347e1cdda688de15eeb292f6"; 
             if (xml.GetElementsByTagName("userid").Count > 0)
                 _UserId = xml.GetElementsByTagName("userid").Item(0).InnerText;
             if (xml.GetElementsByTagName("faveuserid").Count > 0)
@@ -127,13 +135,18 @@ namespace WallpaperFlickr {
             } catch (Exception) {
                 _Position = "Stretched";
             }
+            try {
+                _StartWithWindows = bool.Parse(xml.GetElementsByTagName("startwithwin").Item(0).InnerText);
+            } catch (Exception) {
+                _StartWithWindows = false;
+            }
             try
             {
-                _StartWithWindows = bool.Parse(xml.GetElementsByTagName("startwithwin").Item(0).InnerText);
+                _CachePics = bool.Parse(xml.GetElementsByTagName("cachepics").Item(0).InnerText);
             }
             catch (Exception)
             {
-                _Position = "Stretched";
+                _CachePics = true;
             }
             try
             {
@@ -168,6 +181,7 @@ namespace WallpaperFlickr {
                 tw.WriteElementString("orderby", _OrderBy);
                 tw.WriteElementString("position", _Position);
                 tw.WriteElementString("startwithwin", _StartWithWindows.ToString());
+                tw.WriteElementString("cachepics", _CachePics.ToString());
                 tw.WriteEndElement();
                 tw.WriteEndDocument();
                 tw.Close();
