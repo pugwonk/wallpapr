@@ -280,7 +280,14 @@ namespace WallpaperFlickr {
         }
 
         private void notifyIcon1_MouseClick(object sender, MouseEventArgs e) {
-            contextMenuStrip1.Show();
+            if (e.Button == System.Windows.Forms.MouseButtons.Left)
+            // Left-click gets new wallpaper. Anything else gets context menu
+            {
+                doSaveSettings();
+                GetNewWallpaper();
+            }
+            else
+                contextMenuStrip1.Show();
         }
 
         private void exitToolStripMenuItem_Click(object sender, EventArgs e) {
