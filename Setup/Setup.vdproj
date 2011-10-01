@@ -201,11 +201,6 @@
             "AssemblyAsmDisplayName" = "8:FlickrNet, Version=3.1.4000.0, Culture=neutral, PublicKeyToken=2491df59efa5d132, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
-                    "_AB716636D7B9A499F9E28E4A3FC7EF99"
-                    {
-                    "Name" = "8:FlickrNet.dll"
-                    "Attributes" = "3:512"
-                    }
                 }
             "SourcePath" = "8:FlickrNet.dll"
             "TargetName" = "8:"
@@ -313,20 +308,20 @@
         "Product"
         {
         "Name" = "8:Microsoft Visual Studio"
-        "ProductName" = "8:WallpaperFlickr"
-        "ProductCode" = "8:{F50ACB50-1028-41B5-AA72-8E218043FBBE}"
-        "PackageCode" = "8:{91CC8D85-E627-441C-9D4E-5FE49C510176}"
+        "ProductName" = "8:Wallpapr"
+        "ProductCode" = "8:{541F4B62-8B38-4739-9C6C-F7CAA3B48A54}"
+        "PackageCode" = "8:{C11B52BB-DFB6-4256-8A1C-3118E09F2CB0}"
         "UpgradeCode" = "8:{E32F97CE-1384-46C8-9819-08E75AE05091}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
         "RemovePreviousVersions" = "11:TRUE"
         "DetectNewerInstalledVersion" = "11:TRUE"
         "InstallAllUsers" = "11:FALSE"
-        "ProductVersion" = "8:1.4.0"
+        "ProductVersion" = "8:1.5.0"
         "Manufacturer" = "8:Codeplex"
         "ARPHELPTELEPHONE" = "8:"
         "ARPHELPLINK" = "8:"
-        "Title" = "8:WallpaperFlickr"
+        "Title" = "8:Wallpapr"
         "Subject" = "8:"
         "ARPCONTACT" = "8:"
         "Keywords" = "8:"
@@ -446,7 +441,7 @@
             "Target" = "8:_F04597BBA02B45B2B59EA1B7C899EA8D"
             "Folder" = "8:_52221AAFC10643B8AE52FB4A7A5D4CDC"
             "WorkingFolder" = "8:_73F47A5C03664529814758486E597A17"
-            "Icon" = "8:"
+            "Icon" = "8:_46549266778F49B385A4FBC8AA286FC8"
             "Feature" = "8:"
             }
         }
@@ -850,7 +845,7 @@
         {
             "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_F04597BBA02B45B2B59EA1B7C899EA8D"
             {
-            "SourcePath" = "8:..\\WallpaperFlickr\\obj\\Debug\\Wallpapr.exe"
+            "SourcePath" = "8:..\\WallpaperFlickr\\obj\\Release\\Wallpapr.exe"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_73F47A5C03664529814758486E597A17"
