@@ -87,32 +87,38 @@ public class clsWallpaper {
         if (DownloadedOK)
         {
             FileInfo fi = new FileInfo(Program.MyPath() + "\\wallpaper\\" + FileName);
-            //don't save those stupid photo not available images
-            if (fi.Length > 3500)
-            {
-                Bitmap bitmap = new Bitmap(Program.MyPath() + "\\wallpaper\\" + FileName);
-                bitmap.Save(Program.MyPath() + "\\wallpaper\\_CurrentPaper.bmp", System.Drawing.Imaging.ImageFormat.Bmp);
-                bitmap.Dispose();
-
-                AddRecord();
-                settings.LastChange = DateTime.Now;
-                settings.WebURL = webpath;
-
-                //spot = path.LastIndexOf("\\");
-                //string appPath = path.Substring(0, spot);
-
-                WallpaperFlickr.winWallpaper.ChangeWallpaper(Program.MyPath() + "\\wallpaper\\_CurrentPaper.bmp", sty);
-                Displayable = true;
-            }
+            if (!fi.Exists) // for some reason this sometimes doesn't appear
+                DownloadedOK = false;
             else
             {
-                // CLR 2010-06-22: I don't think we actually do want to save records for the broken ones
-                //wallpaper.AddRecord();
-                File.Delete(Program.MyPath() + "\\wallpaper\\" + FileName);
-                Displayable = false;
+                //don't save those stupid photo not available images
+                if (fi.Length > 3500)
+                {
+                    Bitmap bitmap = new Bitmap(Program.MyPath() + "\\wallpaper\\" + FileName);
+                    bitmap.Save(Program.MyPath() + "\\wallpaper\\_CurrentPaper.bmp", System.Drawing.Imaging.ImageFormat.Bmp);
+                    bitmap.Dispose();
+
+                    AddRecord();
+                    settings.LastChange = DateTime.Now;
+                    settings.WebURL = webpath;
+
+                    //spot = path.LastIndexOf("\\");
+                    //string appPath = path.Substring(0, spot);
+
+                    WallpaperFlickr.winWallpaper.ChangeWallpaper(Program.MyPath() + "\\wallpaper\\_CurrentPaper.bmp", sty);
+                    Displayable = true;
+                }
+                else
+                {
+                    // CLR 2010-06-22: I don't think we actually do want to save records for the broken ones
+                    //wallpaper.AddRecord();
+                    File.Delete(Program.MyPath() + "\\wallpaper\\" + FileName);
+                    Displayable = false;
+                }
             }
             fi = null;
         }
         return (DownloadedOK && Displayable);
     }
+
 }

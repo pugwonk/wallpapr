@@ -6,11 +6,11 @@ using System.Resources;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("WallpaperFlickr")]
+[assembly: AssemblyTitle("Wallpapr")]
 [assembly: AssemblyDescription("Rotates wallpaper using images from Flickr")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("WallpaperFlickr")]
+[assembly: AssemblyProduct("Wallpapr")]
 [assembly: AssemblyCopyright("")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
