@@ -8,6 +8,8 @@ using System.Text;
 using System.Diagnostics;
 using System.Reflection;
 using Microsoft.Win32;
+using System.Text.RegularExpressions;
+using System.Drawing.Drawing2D;
 
 namespace WallpaperFlickr {
     public partial class Form1 : Form {
@@ -204,13 +206,18 @@ namespace WallpaperFlickr {
                 bool LoadedWallpaper = wallpaper.Load(fs[fs.Count - 1].Source, settings,
                     getDisplayStyle(), Application.ExecutablePath, photos[chosePhoto].WebUrl);
 
-                FlickrNet.Person fuser;
-                string notifyText = "";
+                if (!LoadedWallpaper)
+                {
+                    notifyIcon1.Text = "Failed to load wallpaper";
+                    notifyIcon1.Icon = WallpaperFlickr.Properties.Resources.flickrbad;
+                    return;
+                }
+
+                // Get further info about the photo to display in the tooltip
+                FlickrNet.PhotoInfo fi;
                 try
                 {
-                    fuser = flickr.PeopleGetInfo(photos[chosePhoto].UserId);
-                    notifyText = fuser.UserName +
-                        ": " + photos[chosePhoto].Title;
+                    fi = flickr.PhotosGetInfo(photos[chosePhoto].PhotoId);
                 }
                 catch (Exception ex)
                 {
@@ -218,13 +225,44 @@ namespace WallpaperFlickr {
                     return;
                 }
 
-                notifyIcon1.Text = notifyText.Substring(0, Math.Min(63, notifyText.Length));
+                // Set thumbnail
+                notifyIcon1.Icon = TinyPictureVersion(Program.MyPath() + "\\wallpaper\\_CurrentPaper.bmp");
+
+                FlickrNet.Person fuser;
+                string notifyText = "";
+                //try
+                //{
+                    fuser = flickr.PeopleGetInfo(photos[chosePhoto].UserId);
+                    notifyText = fuser.UserName +  ": " + photos[chosePhoto].Title;
+                    string description = fi.Description;
+                    string location = "\n";
+                    if (fi.Location != null)
+                    {
+                        if (fi.Location.County != null)
+                            location += fi.Location.County.Description + ", " + fi.Location.Country.Description;
+                        else
+                            location += fi.Location.Country.Description;
+                    }
+                    description = System.Web.HttpUtility.HtmlDecode(Regex.Replace(description, "<[^>]*>", ""));
+
+                    notifyIcon1.Text = notifyText.Substring(0, Math.Min(63, notifyText.Length));
+                    notifyIcon1.BalloonTipText = fi.DateTaken.ToLongDateString() +
+                        location + "\n" + description;
+                    notifyIcon1.BalloonTipTitle = photos[chosePhoto].Title;
+                    notifyIcon1.Visible = true;
+                    notifyIcon1.ShowBalloonTip(3);
+                //}
+                //catch (Exception ex)
+                //{
+                //    FailWithError(ex);
+                //    return;
+                //}
             }
 
             wallpaper = null;
             flickr = null;
             photos = null;
-            notifyIcon1.Icon = WallpaperFlickr.Properties.Resources.flickr;
+            //notifyIcon1.Icon = WallpaperFlickr.Properties.Resources.flickr;
         }
 
         private void FailWithError(Exception ex)
@@ -233,6 +271,49 @@ namespace WallpaperFlickr {
             notifyIcon1.Icon = WallpaperFlickr.Properties.Resources.flickrbad;
         }
 
+        [System.Runtime.InteropServices.DllImport("user32.dll")]
+        extern static bool DestroyIcon(IntPtr handle);
+
+        private Icon TinyPictureVersion(string p)
+        {
+            // Scale the main bitmap down into an icon-sized one
+            Bitmap newImage = new Bitmap(16, 16);
+            using (Graphics gr = Graphics.FromImage(newImage))
+            {
+                gr.SmoothingMode = SmoothingMode.AntiAlias;
+                gr.InterpolationMode = InterpolationMode.HighQualityBicubic;
+                gr.PixelOffsetMode = PixelOffsetMode.HighQuality;
+
+                //Image mainicon = Properties.Resources.flickr.ToBitmap;
+                //Image mainicon = Properties.Resources.flickr.ToBitmap();
+                Image waiticon = Properties.Resources.flickrwait.ToBitmap();
+                gr.DrawImage(waiticon, new Rectangle(0, 0, 16, 16));
+
+                Image original = Image.FromFile(p);
+                //Rectangle srcbit = new Rectangle(original.Width / 4, original.Height / 4, original.Width / 2, original.Height / 2);
+                Rectangle srcbit = new Rectangle(0, 0, original.Width, original.Height);
+                gr.DrawImage(original, new Rectangle(6, 1, 9, 11), srcbit, GraphicsUnit.Pixel);
+
+                // Copy the bottom line
+                //gr.DrawImage(mainicon, new Rectangle(0, 13, 16, 3), new Rectangle(0, 26, 32, 6), GraphicsUnit.Pixel);
+                // Copy the right hand side
+                //gr.DrawImage(mainicon, new Rectangle(10, 0, 6, 13), new Rectangle(8, 0, 12, 26), GraphicsUnit.Pixel);
+
+                //// Get an Hicon for myBitmap. 
+                //IntPtr Hicon = newImage.GetHicon();
+                //// Create a new icon from the handle. 
+                //Icon newIcon = Icon.FromHandle(Hicon);
+                ////Write Icon to File Stream
+                //System.IO.FileStream fs = new System.IO.FileStream("c:\\temp.ico", System.IO.FileMode.OpenOrCreate);
+                //newIcon.Save(fs);
+                //fs.Close();
+                //DestroyIcon(Hicon);
+            }
+            return FlimFlan.IconEncoder.Converter.BitmapToIcon(newImage); 
+            //newImage.Save("c:\\temp.bmp");
+            //Icon retv = new Icon("c:\\temp2.ico");
+            //return retv;
+        }
 
         private void timer1_Tick(object sender, EventArgs e) {
             doSaveSettings();
@@ -410,6 +491,11 @@ namespace WallpaperFlickr {
         private void rbExplore_CheckedChanged(object sender, EventArgs e)
         {
             EnableSearchTypes();
+        }
+
+        private void notifyIcon1_BalloonTipClicked(object sender, EventArgs e)
+        {
+            System.Diagnostics.Process.Start(settings.WebURL);
         }
     }
 }

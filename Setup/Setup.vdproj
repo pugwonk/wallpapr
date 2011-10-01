@@ -15,12 +15,6 @@
     {
         "Entry"
         {
-        "MsmKey" = "8:_157FE2BBA8925E1A51F7E344F67F99CE"
-        "OwnerKey" = "8:_F04597BBA02B45B2B59EA1B7C899EA8D"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
         "MsmKey" = "8:_46549266778F49B385A4FBC8AA286FC8"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
@@ -29,6 +23,12 @@
         {
         "MsmKey" = "8:_92E3CF540BA146609B7F353CD287FF3D"
         "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_AB716636D7B9A499F9E28E4A3FC7EF99"
+        "OwnerKey" = "8:_F04597BBA02B45B2B59EA1B7C899EA8D"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -46,7 +46,7 @@
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_157FE2BBA8925E1A51F7E344F67F99CE"
+        "OwnerKey" = "8:_AB716636D7B9A499F9E28E4A3FC7EF99"
         "MsmSig" = "8:_UNDEFINED"
         }
     }
@@ -154,37 +154,6 @@
         }
         "File"
         {
-            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_157FE2BBA8925E1A51F7E344F67F99CE"
-            {
-            "AssemblyRegister" = "3:1"
-            "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:FlickrNet, Version=3.1.4000.0, Culture=neutral, PublicKeyToken=2491df59efa5d132, processorArchitecture=MSIL"
-                "ScatterAssemblies"
-                {
-                    "_157FE2BBA8925E1A51F7E344F67F99CE"
-                    {
-                    "Name" = "8:FlickrNet.dll"
-                    "Attributes" = "3:512"
-                    }
-                }
-            "SourcePath" = "8:FlickrNet.dll"
-            "TargetName" = "8:"
-            "Tag" = "8:"
-            "Folder" = "8:_73F47A5C03664529814758486E597A17"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:TRUE"
-            "IsolateTo" = "8:"
-            }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_46549266778F49B385A4FBC8AA286FC8"
             {
             "SourcePath" = "8:..\\WallpaperFlickr\\flickr.ico"
@@ -225,6 +194,37 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_AB716636D7B9A499F9E28E4A3FC7EF99"
+            {
+            "AssemblyRegister" = "3:1"
+            "AssemblyIsInGAC" = "11:FALSE"
+            "AssemblyAsmDisplayName" = "8:FlickrNet, Version=3.1.4000.0, Culture=neutral, PublicKeyToken=2491df59efa5d132, processorArchitecture=MSIL"
+                "ScatterAssemblies"
+                {
+                    "_AB716636D7B9A499F9E28E4A3FC7EF99"
+                    {
+                    "Name" = "8:FlickrNet.dll"
+                    "Attributes" = "3:512"
+                    }
+                }
+            "SourcePath" = "8:FlickrNet.dll"
+            "TargetName" = "8:"
+            "Tag" = "8:"
+            "Folder" = "8:_73F47A5C03664529814758486E597A17"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:TRUE"
+            "IsolateTo" = "8:"
+            }
         }
         "FileType"
         {
@@ -242,7 +242,7 @@
                 {
                     "{9EF0B969-E518-4E46-987F-47570745A589}:_52221AAFC10643B8AE52FB4A7A5D4CDC"
                     {
-                    "Name" = "8:WallpaperFlickr"
+                    "Name" = "8:Wallpapr"
                     "AlwaysCreate" = "11:FALSE"
                     "Condition" = "8:"
                     "Transitive" = "11:FALSE"
@@ -315,7 +315,7 @@
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:WallpaperFlickr"
         "ProductCode" = "8:{F50ACB50-1028-41B5-AA72-8E218043FBBE}"
-        "PackageCode" = "8:{6597DAB0-B96B-470A-BA1C-D5B330D2542F}"
+        "PackageCode" = "8:{91CC8D85-E627-441C-9D4E-5FE49C510176}"
         "UpgradeCode" = "8:{E32F97CE-1384-46C8-9819-08E75AE05091}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
@@ -437,7 +437,7 @@
         {
             "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_91681FD23E2B4A68BB77A3F6E661F8B7"
             {
-            "Name" = "8:WallpaperFlickr"
+            "Name" = "8:Wallpapr"
             "Arguments" = "8:"
             "Description" = "8:"
             "ShowCmd" = "3:1"
@@ -850,7 +850,7 @@
         {
             "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_F04597BBA02B45B2B59EA1B7C899EA8D"
             {
-            "SourcePath" = "8:..\\WallpaperFlickr\\obj\\Debug\\WallpaperFlickr.exe"
+            "SourcePath" = "8:..\\WallpaperFlickr\\obj\\Debug\\Wallpapr.exe"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_73F47A5C03664529814758486E597A17"

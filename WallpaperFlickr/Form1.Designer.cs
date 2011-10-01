@@ -269,6 +269,7 @@ namespace WallpaperFlickr {
             this.notifyIcon1.Icon = ((System.Drawing.Icon)(resources.GetObject("notifyIcon1.Icon")));
             this.notifyIcon1.Text = "Wallpaper Flickr";
             this.notifyIcon1.Visible = true;
+            this.notifyIcon1.BalloonTipClicked += new System.EventHandler(this.notifyIcon1_BalloonTipClicked);
             this.notifyIcon1.MouseClick += new System.Windows.Forms.MouseEventHandler(this.notifyIcon1_MouseClick);
             // 
             // contextMenuStrip1
@@ -279,7 +280,7 @@ namespace WallpaperFlickr {
             this.thisPhotoOnFlickrcomToolStripMenuItem,
             this.exitToolStripMenuItem});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(214, 114);
+            this.contextMenuStrip1.Size = new System.Drawing.Size(214, 92);
             // 
             // getNewWallpaperToolStripMenuItem
             // 
@@ -412,7 +413,7 @@ namespace WallpaperFlickr {
             this.Name = "Form1";
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "WallpaperFlickr";
+            this.Text = "Wallpapr";
             this.WindowState = System.Windows.Forms.FormWindowState.Minimized;
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
             this.Load += new System.EventHandler(this.Form1_Load);
