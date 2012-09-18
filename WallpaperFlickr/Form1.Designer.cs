@@ -58,6 +58,7 @@ namespace WallpaperFlickr {
             this.llWebsite = new System.Windows.Forms.LinkLabel();
             this.cbStartWithWindows = new System.Windows.Forms.CheckBox();
             this.cbCache = new System.Windows.Forms.CheckBox();
+            this.cbBubbles = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.numFrequency)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -389,12 +390,23 @@ namespace WallpaperFlickr {
             this.cbCache.Text = "Cache pictures";
             this.cbCache.UseVisualStyleBackColor = true;
             // 
+            // cbBubbles
+            // 
+            this.cbBubbles.AutoSize = true;
+            this.cbBubbles.Location = new System.Drawing.Point(331, 366);
+            this.cbBubbles.Name = "cbBubbles";
+            this.cbBubbles.Size = new System.Drawing.Size(113, 17);
+            this.cbBubbles.TabIndex = 20;
+            this.cbBubbles.Text = "Show info-bubbles";
+            this.cbBubbles.UseVisualStyleBackColor = true;
+            // 
             // Form1
             // 
             this.AcceptButton = this.btnOK;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(460, 390);
+            this.Controls.Add(this.cbBubbles);
             this.Controls.Add(this.cbCache);
             this.Controls.Add(this.ddPosition);
             this.Controls.Add(this.label3);
@@ -464,6 +476,7 @@ namespace WallpaperFlickr {
         private System.Windows.Forms.CheckBox cbStartWithWindows;
         private System.Windows.Forms.RadioButton rbExplore;
         private System.Windows.Forms.CheckBox cbCache;
+        private System.Windows.Forms.CheckBox cbBubbles;
 
     }
 }

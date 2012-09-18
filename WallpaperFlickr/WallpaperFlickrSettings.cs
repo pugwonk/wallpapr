@@ -28,6 +28,13 @@ namespace WallpaperFlickr {
             set { if (_CachePics != value) { _CachePics = value; Dirty = true; } }
         }
 
+        private bool _ShowBubbles = true;
+        public bool ShowBubbles
+        {
+            get { return _ShowBubbles; }
+            set { if (_ShowBubbles != value) { _ShowBubbles = value; Dirty = true; } }
+        }
+
         private bool _StartWithWindows = false;
         public bool StartWithWindows
         {
@@ -150,6 +157,14 @@ namespace WallpaperFlickr {
             }
             try
             {
+                _ShowBubbles = bool.Parse(xml.GetElementsByTagName("showbubbles").Item(0).InnerText);
+            }
+            catch (Exception)
+            {
+                _ShowBubbles = true;
+            }
+            try
+            {
                 _Frequency = Convert.ToInt32(xml.GetElementsByTagName("frequency").Item(0).InnerText);
             } catch (Exception) {
                 _Frequency = 1;
@@ -182,6 +197,7 @@ namespace WallpaperFlickr {
                 tw.WriteElementString("position", _Position);
                 tw.WriteElementString("startwithwin", _StartWithWindows.ToString());
                 tw.WriteElementString("cachepics", _CachePics.ToString());
+                tw.WriteElementString("showbubbles", _ShowBubbles.ToString());
                 tw.WriteEndElement();
                 tw.WriteEndDocument();
                 tw.Close();

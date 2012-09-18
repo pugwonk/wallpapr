@@ -60,6 +60,7 @@ namespace WallpaperFlickr {
             rbExplore.Checked = (settings.SearchOrFaves == 2);
             cbStartWithWindows.Checked = settings.StartWithWindows;
             cbCache.Checked = settings.CachePics;
+            cbBubbles.Checked = settings.ShowBubbles;
             EnableSearchTypes();
 
             rbAllTags.Checked = false;
@@ -230,33 +231,27 @@ namespace WallpaperFlickr {
 
                 FlickrNet.Person fuser;
                 string notifyText = "";
-                //try
-                //{
-                    fuser = flickr.PeopleGetInfo(photos[chosePhoto].UserId);
-                    notifyText = fuser.UserName +  ": " + photos[chosePhoto].Title;
-                    string description = fi.Description;
-                    string location = "\n";
-                    if (fi.Location != null)
-                    {
-                        if (fi.Location.County != null)
-                            location += fi.Location.County.Description + ", " + fi.Location.Country.Description;
-                        else
-                            location += fi.Location.Country.Description;
-                    }
-                    description = System.Web.HttpUtility.HtmlDecode(Regex.Replace(description, "<[^>]*>", ""));
+                fuser = flickr.PeopleGetInfo(photos[chosePhoto].UserId);
+                notifyText = fuser.UserName + ": " + photos[chosePhoto].Title;
+                string description = fi.Description;
+                string location = "\n";
+                if (fi.Location != null)
+                {
+                    if (fi.Location.County != null)
+                        location += fi.Location.County.Description + ", " + fi.Location.Country.Description;
+                    else
+                        location += fi.Location.Country.Description;
+                }
+                description = System.Web.HttpUtility.HtmlDecode(Regex.Replace(description, "<[^>]*>", ""));
 
-                    notifyIcon1.Text = notifyText.Substring(0, Math.Min(63, notifyText.Length));
-                    notifyIcon1.BalloonTipText = fi.DateTaken.ToLongDateString() +
-                        location + "\n" + description;
-                    notifyIcon1.BalloonTipTitle = photos[chosePhoto].Title;
-                    notifyIcon1.Visible = true;
+                notifyIcon1.Text = notifyText.Substring(0, Math.Min(63, notifyText.Length));
+                notifyIcon1.BalloonTipText = fi.DateTaken.ToLongDateString() +
+                    location + "\n" + description;
+                notifyIcon1.BalloonTipTitle = photos[chosePhoto].Title;
+                notifyIcon1.Visible = true;
+                
+                if (settings.ShowBubbles)
                     notifyIcon1.ShowBalloonTip(3);
-                //}
-                //catch (Exception ex)
-                //{
-                //    FailWithError(ex);
-                //    return;
-                //}
             }
 
             wallpaper = null;
@@ -407,6 +402,7 @@ namespace WallpaperFlickr {
                     settings.SearchOrFaves = 2;
             settings.StartWithWindows = cbStartWithWindows.Checked;
             settings.CachePics = cbCache.Checked;
+            settings.ShowBubbles = cbBubbles.Checked;
             // Also need to actually change the registry here
             RegistryKey myKey = Registry.CurrentUser.OpenSubKey("Software\\Microsoft\\Windows\\CurrentVersion\\Run", true);
             if (settings.StartWithWindows)
