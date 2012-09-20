@@ -193,21 +193,22 @@ namespace WallpaperFlickr {
                 int chosePhoto = pn.Next(0, photos.Count);
                 //FlickrNet.Sizes fs = flickr.PhotosGetSizes("4570943273");
                 FlickrNet.SizeCollection fs;
+                bool LoadedWallpaper = false;
                 try
                 {
                     fs = flickr.PhotosGetSizes(photos[chosePhoto].PhotoId);
+                    // Load the last size (which should be "Original"). Doing all this
+                    // because photo.OriginalURL just causes an exception
+                    LoadedWallpaper = wallpaper.Load(fs[fs.Count - 1].Source, settings,
+                        getDisplayStyle(), Application.ExecutablePath, photos[chosePhoto].WebUrl);
                 }
-                catch (Exception ex)
+                catch (Exception ex) // load failed with an exception
                 {
                     FailWithError(ex);
                     return;
                 }
-                // Load the last size (which should be "Original"). Doing all this
-                // because photo.OriginalURL just causes an exception
-                bool LoadedWallpaper = wallpaper.Load(fs[fs.Count - 1].Source, settings,
-                    getDisplayStyle(), Application.ExecutablePath, photos[chosePhoto].WebUrl);
 
-                if (!LoadedWallpaper)
+                if (!LoadedWallpaper) // load failed, but didn't cause an exception
                 {
                     notifyIcon1.Text = "Failed to load wallpaper";
                     notifyIcon1.Icon = WallpaperFlickr.Properties.Resources.flickrbad;

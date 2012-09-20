@@ -27,7 +27,7 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_AB716636D7B9A499F9E28E4A3FC7EF99"
+        "MsmKey" = "8:_EDB444BFF9EA5D0263E50F0F7338BD9C"
         "OwnerKey" = "8:_F04597BBA02B45B2B59EA1B7C899EA8D"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -46,7 +46,7 @@
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_AB716636D7B9A499F9E28E4A3FC7EF99"
+        "OwnerKey" = "8:_EDB444BFF9EA5D0263E50F0F7338BD9C"
         "MsmSig" = "8:_UNDEFINED"
         }
     }
@@ -194,13 +194,18 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
-            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_AB716636D7B9A499F9E28E4A3FC7EF99"
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_EDB444BFF9EA5D0263E50F0F7338BD9C"
             {
             "AssemblyRegister" = "3:1"
             "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:FlickrNet, Version=3.1.4000.0, Culture=neutral, PublicKeyToken=2491df59efa5d132, processorArchitecture=MSIL"
+            "AssemblyAsmDisplayName" = "8:FlickrNet, Version=3.5.0.0, Culture=neutral, PublicKeyToken=2491df59efa5d132, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
+                    "_EDB444BFF9EA5D0263E50F0F7338BD9C"
+                    {
+                    "Name" = "8:FlickrNet.dll"
+                    "Attributes" = "3:512"
+                    }
                 }
             "SourcePath" = "8:FlickrNet.dll"
             "TargetName" = "8:"
@@ -309,15 +314,15 @@
         {
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:Wallpapr"
-        "ProductCode" = "8:{541F4B62-8B38-4739-9C6C-F7CAA3B48A54}"
-        "PackageCode" = "8:{C11B52BB-DFB6-4256-8A1C-3118E09F2CB0}"
+        "ProductCode" = "8:{93AF6EBD-3B24-4A83-BD14-DD63ECD6D249}"
+        "PackageCode" = "8:{DF52FA07-2330-4DCF-97B3-9CC708BB187A}"
         "UpgradeCode" = "8:{E32F97CE-1384-46C8-9819-08E75AE05091}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
         "RemovePreviousVersions" = "11:TRUE"
         "DetectNewerInstalledVersion" = "11:TRUE"
         "InstallAllUsers" = "11:FALSE"
-        "ProductVersion" = "8:1.5.0"
+        "ProductVersion" = "8:1.6.0"
         "Manufacturer" = "8:Codeplex"
         "ARPHELPTELEPHONE" = "8:"
         "ARPHELPLINK" = "8:"

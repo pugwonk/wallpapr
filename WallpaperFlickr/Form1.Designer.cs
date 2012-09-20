@@ -363,10 +363,10 @@ namespace WallpaperFlickr {
             this.llWebsite.AutoSize = true;
             this.llWebsite.Location = new System.Drawing.Point(4, 367);
             this.llWebsite.Name = "llWebsite";
-            this.llWebsite.Size = new System.Drawing.Size(174, 13);
+            this.llWebsite.Size = new System.Drawing.Size(146, 13);
             this.llWebsite.TabIndex = 17;
             this.llWebsite.TabStop = true;
-            this.llWebsite.Text = "http://flickrwallpaper.codeplex.com";
+            this.llWebsite.Text = "http://wallpapr.codeplex.com";
             this.llWebsite.TextAlign = System.Drawing.ContentAlignment.TopRight;
             this.llWebsite.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.llWebsite_LinkClicked);
             // 
