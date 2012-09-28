@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Windows.Forms;
 
 namespace WallpaperFlickr {
@@ -17,7 +18,11 @@ namespace WallpaperFlickr {
         public static string MyPath()
         {
             //return System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
-            return Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "\\WallpaperFlickr";
+            var path = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "\\WallpaperFlickr";
+            if (Directory.Exists(path) == false)
+                Directory.CreateDirectory(path);
+
+            return path;
         }
 
 
