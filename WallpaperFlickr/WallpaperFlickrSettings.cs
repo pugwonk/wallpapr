@@ -104,12 +104,19 @@ namespace WallpaperFlickr {
             set { if (_Frequency != value) { _Frequency = value; Dirty = true; } }
         }
 
-        public void ReadSettings() {
+        public void ReadSettings() 
+        {
+            _ApiKey = "e771a253347e1cdda688de15eeb292f6"; 
+
+            var settingsPath = Program.MyPath() + "\\WallpaperFlickrSettings.xml";
+            //Just exit if no settings folder
+            if (File.Exists(settingsPath) == false)
+                return;
+
             XmlDocument xml = new XmlDocument();
-            xml.Load(Program.MyPath() + "\\WallpaperFlickrSettings.xml");
+            xml.Load(settingsPath);
             //MessageBox.Show(Program.MyPath());
             //_ApiKey = xml.GetElementsByTagName("apikey").Item(0).InnerText;
-            _ApiKey = "e771a253347e1cdda688de15eeb292f6"; 
             if (xml.GetElementsByTagName("userid").Count > 0)
                 _UserId = xml.GetElementsByTagName("userid").Item(0).InnerText;
             if (xml.GetElementsByTagName("faveuserid").Count > 0)
