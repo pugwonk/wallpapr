@@ -18,11 +18,11 @@ namespace WallpaperFlickr {
             InitializeComponent();
         }
 
-        private WallpaperFlickrSettings settings;
+        private Form1ViewModel _viewModel;
+
 
         private void Form1_Load(object sender, EventArgs e) {
-            settings = new WallpaperFlickrSettings();
-            settings.ReadSettings();
+            _viewModel = new Form1ViewModel();
 
             ddInterval.Items.Add("minutes");
             ddInterval.Items.Add("hours");
@@ -47,25 +47,25 @@ namespace WallpaperFlickr {
 
             lbVersion.Text = "Version " + Assembly.GetExecutingAssembly().GetName().Version.ToString();
 
-            numFrequency.Value = settings.Frequency;
-            ddInterval.Text = settings.Interval;
-            ddOrderBy.Text = settings.OrderBy;
-            ddPosition.Text = settings.Position;
+            numFrequency.Value = _viewModel.Frequency;
+            ddInterval.Text = _viewModel.Interval;
+            ddOrderBy.Text = _viewModel.OrderBy;
+            ddPosition.Text = _viewModel.Position;
             //txtApiKey.Text = settings.ApiKey;
-            txtTags.Text = settings.Tags;
-            txtUserId.Text = settings.UserId;
-            txtFaveUserId.Text = settings.FaveUserId;
-            rbSearch.Checked = (settings.SearchOrFaves == 0);
-            rbFaves.Checked = (settings.SearchOrFaves == 1);
-            rbExplore.Checked = (settings.SearchOrFaves == 2);
-            cbStartWithWindows.Checked = settings.StartWithWindows;
-            cbCache.Checked = settings.CachePics;
-            cbBubbles.Checked = settings.ShowBubbles;
+            txtTags.Text = _viewModel.Tags;
+            txtUserId.Text = _viewModel.UserId;
+            txtFaveUserId.Text = _viewModel.FaveUserId;
+            rbSearch.Checked = (_viewModel.SearchOrFaves == 0);
+            rbFaves.Checked = (_viewModel.SearchOrFaves == 1);
+            rbExplore.Checked = (_viewModel.SearchOrFaves == 2);
+            cbStartWithWindows.Checked = _viewModel.StartWithWindows;
+            cbCache.Checked = _viewModel.CachePics;
+            cbBubbles.Checked = _viewModel.ShowBubbles;
             EnableSearchTypes();
 
             rbAllTags.Checked = false;
             rbAnyTags.Checked = false;
-            if (settings.TagMode == "all") {
+            if (_viewModel.TagMode == "all") {
                 rbAllTags.Checked = true;
             } else {
                 rbAnyTags.Checked = true;
@@ -77,7 +77,8 @@ namespace WallpaperFlickr {
 
             Hide();
 
-            if (settings.ApiKey.Equals(string.Empty)) {
+            if (_viewModel.ApiKey.Equals(string.Empty))
+            {
                 MessageBox.Show("Please read the readme.txt and follow the instructions to get an API key.");
             }
 
@@ -89,7 +90,7 @@ namespace WallpaperFlickr {
             notifyIcon1.Text = "Retrieving next picture...";
             notifyIcon1.Icon = WallpaperFlickr.Properties.Resources.flickrwait;
             
-            if (settings.ApiKey.Equals(string.Empty))
+            if (_viewModel.ApiKey.Equals(string.Empty))
             {
                 notifyIcon1.Text = "API key missing";
                 notifyIcon1.Icon = WallpaperFlickr.Properties.Resources.flickrbad;
@@ -97,24 +98,24 @@ namespace WallpaperFlickr {
             }
 
             FlickrNet.Flickr flickr = new FlickrNet.Flickr();
-            flickr.ApiKey = settings.ApiKey;
+            flickr.ApiKey = _viewModel.ApiKey;
 
             FlickrNet.PhotoCollection photos = null;
 
-            switch (settings.SearchOrFaves)
+            switch (_viewModel.SearchOrFaves)
             {
                 case 0:
                     FlickrNet.PhotoSearchOptions options = new FlickrNet.PhotoSearchOptions();
-                    if (!settings.Tags.Trim().Equals(string.Empty))
+                    if (!_viewModel.Tags.Trim().Equals(string.Empty))
                     {
-                        options.Tags = settings.Tags;
+                        options.Tags = _viewModel.Tags;
                         options.TagMode = GetTagMode();
                     }
-                    if (!settings.UserId.Trim().Equals(string.Empty))
+                    if (!_viewModel.UserId.Trim().Equals(string.Empty))
                     {
                         FlickrNet.FoundUser fuser;
                         string UserName = "";
-                        string[] AllUserNames = settings.UserId.Split(',');
+                        string[] AllUserNames = _viewModel.UserId.Split(',');
                         UserName = AllUserNames[new Random().Next(0, AllUserNames.GetUpperBound(0) + 1)];
                         try
                         { // Exception handler added by CLR 2010-06-11
@@ -151,7 +152,7 @@ namespace WallpaperFlickr {
                     try
                     {
                         FlickrNet.FoundUser fuser;
-                        fuser = flickr.PeopleFindByUserName(settings.FaveUserId);
+                        fuser = flickr.PeopleFindByUserName(_viewModel.FaveUserId);
                         photos = flickr.FavoritesGetPublicList(fuser.UserId);
                     }
                     catch (Exception ex)
@@ -199,7 +200,7 @@ namespace WallpaperFlickr {
                     fs = flickr.PhotosGetSizes(photos[chosePhoto].PhotoId);
                     // Load the last size (which should be "Original"). Doing all this
                     // because photo.OriginalURL just causes an exception
-                    LoadedWallpaper = wallpaper.Load(fs[fs.Count - 1].Source, settings,
+                    LoadedWallpaper = wallpaper.Load(fs[fs.Count - 1].Source, _viewModel.Settings,
                         getDisplayStyle(), Application.ExecutablePath, photos[chosePhoto].WebUrl);
                 }
                 catch (Exception ex) // load failed with an exception
@@ -251,7 +252,7 @@ namespace WallpaperFlickr {
                 notifyIcon1.BalloonTipTitle = photos[chosePhoto].Title;
                 notifyIcon1.Visible = true;
                 
-                if (settings.ShowBubbles)
+                if (_viewModel.ShowBubbles)
                     notifyIcon1.ShowBalloonTip(3);
             }
 
@@ -313,13 +314,13 @@ namespace WallpaperFlickr {
 
         private void timer1_Tick(object sender, EventArgs e) {
             doSaveSettings();
-            if (settings.HasExpired()) {
+            if (_viewModel.HasExpired()) {
                 GetNewWallpaper();
             }
         }
 
         private FlickrNet.PhotoSearchSortOrder GetSortOrder() {
-            switch (settings.OrderBy) {
+            switch (_viewModel.OrderBy) {
                 //case "Date Posted Asc": return FlickrNet.PhotoSearchSortOrder.DatePostedAsc;
                 case "Newly Posted": return FlickrNet.PhotoSearchSortOrder.DatePostedDescending;
                 //case "Date Taken Asc": return FlickrNet.PhotoSearchSortOrder.DateTakenAsc;
@@ -333,7 +334,7 @@ namespace WallpaperFlickr {
         }
 
         private FlickrNet.TagMode GetTagMode() {
-            switch (settings.TagMode) {
+            switch (_viewModel.TagMode) {
                 case "all": return FlickrNet.TagMode.AllTags;
                 case "any": return FlickrNet.TagMode.AnyTag;
                 default: return FlickrNet.TagMode.AnyTag;
@@ -390,23 +391,23 @@ namespace WallpaperFlickr {
 
         private void doSaveSettings() {
             //settings.ApiKey = txtApiKey.Text;
-            settings.Frequency = Convert.ToInt32(numFrequency.Value);
-            settings.Interval = ddInterval.Text;
-            settings.OrderBy = ddOrderBy.Text;
-            settings.Position = ddPosition.Text;
+            _viewModel.Frequency = Convert.ToInt32(numFrequency.Value);
+            _viewModel.Interval = ddInterval.Text;
+            _viewModel.OrderBy = ddOrderBy.Text;
+            _viewModel.Position = ddPosition.Text;
             if (rbSearch.Checked)
-                settings.SearchOrFaves = 0;
+                _viewModel.SearchOrFaves = 0;
             else
                 if (rbFaves.Checked)
-                    settings.SearchOrFaves = 1;
+                    _viewModel.SearchOrFaves = 1;
                 else
-                    settings.SearchOrFaves = 2;
-            settings.StartWithWindows = cbStartWithWindows.Checked;
-            settings.CachePics = cbCache.Checked;
-            settings.ShowBubbles = cbBubbles.Checked;
+                    _viewModel.SearchOrFaves = 2;
+            _viewModel.StartWithWindows = cbStartWithWindows.Checked;
+            _viewModel.CachePics = cbCache.Checked;
+            _viewModel.ShowBubbles = cbBubbles.Checked;
             // Also need to actually change the registry here
             RegistryKey myKey = Registry.CurrentUser.OpenSubKey("Software\\Microsoft\\Windows\\CurrentVersion\\Run", true);
-            if (settings.StartWithWindows)
+            if (_viewModel.StartWithWindows)
             {
                 myKey.SetValue("WallpaperFlickr",
                     System.Reflection.Assembly.GetExecutingAssembly().Location,
@@ -424,18 +425,18 @@ namespace WallpaperFlickr {
             }
 
             if (rbAllTags.Checked) {
-                settings.TagMode = "all";
+                _viewModel.TagMode = "all";
             } else {
-                settings.TagMode = "any";
+                _viewModel.TagMode = "any";
             }
-            settings.Tags = txtTags.Text;
-            settings.UserId = txtUserId.Text;
-            settings.FaveUserId = txtFaveUserId.Text;
-            settings.SaveSettings();
+            _viewModel.Tags = txtTags.Text;
+            _viewModel.UserId = txtUserId.Text;
+            _viewModel.FaveUserId = txtFaveUserId.Text;
+            _viewModel.SaveSettings();
         }
 
         private winWallpaper.Style getDisplayStyle() {
-            switch (settings.Position.ToLower()) {
+            switch (_viewModel.Position.ToLower()) {
                 case "centered":    return winWallpaper.Style.Centered;
                 case "tiled":       return winWallpaper.Style.Tiled;
                 case "stretched":   return winWallpaper.Style.Stretched;
@@ -459,7 +460,7 @@ namespace WallpaperFlickr {
 
         private void thisPhotoOnFlickrcomToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            System.Diagnostics.Process.Start(settings.WebURL);
+            System.Diagnostics.Process.Start(_viewModel.WebURL);
         }
 
         private void rbSearch_CheckedChanged(object sender, EventArgs e)
@@ -492,7 +493,7 @@ namespace WallpaperFlickr {
 
         private void notifyIcon1_BalloonTipClicked(object sender, EventArgs e)
         {
-            System.Diagnostics.Process.Start(settings.WebURL);
+            System.Diagnostics.Process.Start(_viewModel.WebURL);
         }
     }
 }
