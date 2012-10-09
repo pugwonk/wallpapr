@@ -69,6 +69,9 @@
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="FlickrNet">
+      <HintPath>..\packages\FlickrNet.3.5.0\lib\net20\FlickrNet.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Deployment" />
@@ -168,6 +171,7 @@
   </ItemGroup>
   <ItemGroup>
     <BaseApplicationManifest Include="Properties\app.manifest" />
+    <None Include="packages.config" />
     <None Include="WallpaperFlickr_1_TemporaryKey.pfx" />
     <None Include="WallpaperFlickr_TemporaryKey.pfx" />
   </ItemGroup>
@@ -182,12 +186,6 @@
       <IncludeHash>True</IncludeHash>
       <FileType>File</FileType>
     </PublishFile>
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\..\notmine\FlickrNet Codeplex\FlickrNet\FlickrNet.csproj">
-      <Project>{5F017126-C1FF-4996-85CC-6150E80C6AFC}</Project>
-      <Name>FlickrNet</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
