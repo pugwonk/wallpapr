@@ -1,8 +1,10 @@
 ﻿<Window x:Class="WallPapr.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="MainWindow" Height="350" Width="525">
+        Title="WallPapr" Height="350" Width="525" Icon="Flickr.png">
     <Grid>
-        
+        <TextBlock Text="No settings yet, lets work on replicating  the functionality in the WInForms client before committing to WPF, as it looks as if everything runs from the main form." HorizontalAlignment="Stretch" Margin="10,10,10,0" TextWrapping ="Wrap"
+               VerticalAlignment="Top"/>
+
     </Grid>
 </Window>

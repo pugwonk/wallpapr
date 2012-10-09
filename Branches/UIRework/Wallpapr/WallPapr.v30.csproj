@@ -94,13 +94,16 @@
     <AppDesigner Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="flickr.ico" />
+    <EmbeddedResource Include="flickr.ico" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="flickrbad.ico" />
+    <EmbeddedResource Include="flickrbad.ico" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="flickrwait.ico" />
+    <EmbeddedResource Include="flickrwait.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Flickr.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

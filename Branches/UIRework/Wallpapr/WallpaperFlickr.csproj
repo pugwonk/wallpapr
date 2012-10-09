@@ -99,6 +99,7 @@
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
+    <Compile Include="Form1ViewModel.cs" />
     <Compile Include="IconHolder.cs" />
     <Compile Include="ImageStructs.cs" />
     <Compile Include="Program.cs" />
