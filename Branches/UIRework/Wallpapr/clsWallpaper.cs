@@ -20,7 +20,7 @@ public class clsWallpaper {
 	public void AddRecord() {
         try
         {
-            StreamWriter sw = new StreamWriter(Program.MyPath() + "\\wallpapers.db", true, System.Text.Encoding.UTF8);
+            StreamWriter sw = new StreamWriter(FileSystem.MyPath()+ "\\wallpapers.db", true, System.Text.Encoding.UTF8);
             sw.WriteLine(URL);
             sw.Dispose();
         }
@@ -35,9 +35,9 @@ public class clsWallpaper {
 
     public bool AlreadyDownloaded(string url) {
         bool returnvalue = false;
-        if (File.Exists(Program.MyPath() + "\\wallpapers.db"))
+        if (File.Exists(FileSystem.MyPath()+ "\\wallpapers.db"))
         {
-            StreamReader sr = new StreamReader(Program.MyPath() + "\\wallpapers.db", System.Text.Encoding.UTF8);
+            StreamReader sr = new StreamReader(FileSystem.MyPath()+ "\\wallpapers.db", System.Text.Encoding.UTF8);
             while (sr.Peek() >= 0) {
                 if (sr.ReadLine().ToLower().Trim() == url.ToLower().Trim()) {
                     returnvalue = true;
@@ -59,23 +59,23 @@ public class clsWallpaper {
         string FileName = URL.Substring(spot + 1, URL.Length - spot - 1);
         if (!AlreadyDownloaded())
         {
-            if (!Directory.Exists(Program.MyPath() + "\\wallpaper"))
+            if (!Directory.Exists(FileSystem.MyPath()+ "\\wallpaper"))
             {
-                Directory.CreateDirectory(Program.MyPath() + "\\wallpaper");
+                Directory.CreateDirectory(FileSystem.MyPath()+ "\\wallpaper");
             }
             if (!settings.CachePics)
             {
                 // Empty the cache folder if we're not supposed to be caching
-                DirectoryInfo dir = new DirectoryInfo(Program.MyPath() + "\\wallpaper");
+                DirectoryInfo dir = new DirectoryInfo(FileSystem.MyPath()+ "\\wallpaper");
                 dir.Delete(true);
-                Directory.CreateDirectory(Program.MyPath() + "\\wallpaper");
+                Directory.CreateDirectory(FileSystem.MyPath()+ "\\wallpaper");
             } 
 
             WebClient wc = new WebClient();
             try
             {
                 
-                wc.DownloadFile(URL, Program.MyPath() + "\\wallpaper\\" + FileName);
+                wc.DownloadFile(URL, FileSystem.MyPath()+ "\\wallpaper\\" + FileName);
             }
             catch
             {
@@ -86,7 +86,7 @@ public class clsWallpaper {
 
         if (DownloadedOK)
         {
-            FileInfo fi = new FileInfo(Program.MyPath() + "\\wallpaper\\" + FileName);
+            FileInfo fi = new FileInfo(FileSystem.MyPath()+ "\\wallpaper\\" + FileName);
             if (!fi.Exists) // for some reason this sometimes doesn't appear
                 DownloadedOK = false;
             else
@@ -94,8 +94,8 @@ public class clsWallpaper {
                 //don't save those stupid photo not available images
                 if (fi.Length > 3500)
                 {
-                    Bitmap bitmap = new Bitmap(Program.MyPath() + "\\wallpaper\\" + FileName);
-                    bitmap.Save(Program.MyPath() + "\\wallpaper\\_CurrentPaper.bmp", System.Drawing.Imaging.ImageFormat.Bmp);
+                    Bitmap bitmap = new Bitmap(FileSystem.MyPath()+ "\\wallpaper\\" + FileName);
+                    bitmap.Save(FileSystem.MyPath()+ "\\wallpaper\\_CurrentPaper.bmp", System.Drawing.Imaging.ImageFormat.Bmp);
                     bitmap.Dispose();
 
                     AddRecord();
@@ -105,14 +105,14 @@ public class clsWallpaper {
                     //spot = path.LastIndexOf("\\");
                     //string appPath = path.Substring(0, spot);
 
-                    WallpaperFlickr.winWallpaper.ChangeWallpaper(Program.MyPath() + "\\wallpaper\\_CurrentPaper.bmp", sty);
+                    WallpaperFlickr.winWallpaper.ChangeWallpaper(FileSystem.MyPath()+ "\\wallpaper\\_CurrentPaper.bmp", sty);
                     Displayable = true;
                 }
                 else
                 {
                     // CLR 2010-06-22: I don't think we actually do want to save records for the broken ones
                     //wallpaper.AddRecord();
-                    File.Delete(Program.MyPath() + "\\wallpaper\\" + FileName);
+                    File.Delete(FileSystem.MyPath()+ "\\wallpaper\\" + FileName);
                     Displayable = false;
                 }
             }

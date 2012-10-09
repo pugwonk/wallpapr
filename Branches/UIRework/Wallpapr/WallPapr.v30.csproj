@@ -7,7 +7,7 @@
     <ProjectGuid>{D94E83EC-6B1A-444D-B276-BE4003545FEC}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>WallPapr</RootNamespace>
+    <RootNamespace>WallpaperFlickr</RootNamespace>
     <AssemblyName>WallPapr</AssemblyName>
     <TargetFrameworkVersion>v3.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
@@ -42,10 +42,18 @@
     <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>flickr.ico</ApplicationIcon>
+  </PropertyGroup>
   <ItemGroup>
+    <Reference Include="FlickrNet">
+      <HintPath>..\packages\FlickrNet.3.5.0\lib\net20\FlickrNet.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="WindowsBase" />
     <Reference Include="PresentationCore" />
@@ -56,6 +64,15 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="BitmapHolder.cs" />
+    <Compile Include="clsWallpaper.cs" />
+    <Compile Include="Converter.cs" />
+    <Compile Include="FileSystem.cs" />
+    <Compile Include="Form1ViewModel.cs" />
+    <Compile Include="IconHolder.cs" />
+    <Compile Include="ImageStructs.cs" />
+    <Compile Include="WallpaperFlickrSettings.cs" />
+    <Compile Include="winWallpaper.cs" />
     <Compile Include="WPFContrib\ArgumentValidator.cs" />
     <Compile Include="WPFContrib\InvariantString.cs" />
     <Compile Include="WPFContrib\SR.designer.cs" />
@@ -95,6 +112,7 @@
     <Resource Include="WPFContrib\SR.resx">
       <SubType>Designer</SubType>
     </Resource>
+    <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -102,7 +120,7 @@
     <AppDesigner Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="flickr.ico" />
+    <Resource Include="flickr.ico" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="flickrbad.ico" />

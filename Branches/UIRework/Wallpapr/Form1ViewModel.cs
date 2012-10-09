@@ -266,7 +266,7 @@ namespace WallpaperFlickr
                 }
 
                 // Set thumbnail
-                NotifyIconIcon = TinyPictureVersion(Program.MyPath() + "\\wallpaper\\_CurrentPaper.bmp");
+                NotifyIconIcon = TinyPictureVersion(FileSystem.MyPath() + "\\wallpaper\\_CurrentPaper.bmp");
 
                 FlickrNet.Person fuser;
                 string notifyText = "";

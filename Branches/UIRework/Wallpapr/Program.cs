@@ -14,17 +14,7 @@ namespace WallpaperFlickr {
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new Form1());
         }
-
-        public static string MyPath()
-        {
-            //return System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
-            var path = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "\\WallpaperFlickr";
-            if (Directory.Exists(path) == false)
-                Directory.CreateDirectory(path);
-
-            return path;
-        }
-
+  
 
     }
 }
