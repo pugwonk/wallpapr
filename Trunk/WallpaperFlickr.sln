@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WallpaperFlickr", "WallpaperFlickr\WallpaperFlickr.csproj", "{0B0A6460-E213-4C02-B756-4CF952380073}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WallpaperFlickr", "Wallpapr\WallpaperFlickr.csproj", "{0B0A6460-E213-4C02-B756-4CF952380073}"
 EndProject
 Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "Setup", "Setup\Setup.vdproj", "{95D4CFC2-58DD-4B58-B32D-7AA278B1C761}"
 EndProject
