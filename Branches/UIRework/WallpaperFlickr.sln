@@ -7,24 +7,38 @@ Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "Setup", "Setup\Setup.vdproj
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ReworkDesignTemp", "ReworkDesignTemp\ReworkDesignTemp.csproj", "{78FF78DE-0C89-465D-A865-803D3DCE8075}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WallPapr.v30", "Wallpapr\WallPapr.v30.csproj", "{D94E83EC-6B1A-444D-B276-BE4003545FEC}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		DebugWPF|Any CPU = DebugWPF|Any CPU
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{0B0A6460-E213-4C02-B756-4CF952380073}.DebugWPF|Any CPU.ActiveCfg = DebugWPF|Any CPU
+		{0B0A6460-E213-4C02-B756-4CF952380073}.DebugWPF|Any CPU.Build.0 = DebugWPF|Any CPU
 		{0B0A6460-E213-4C02-B756-4CF952380073}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{0B0A6460-E213-4C02-B756-4CF952380073}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0B0A6460-E213-4C02-B756-4CF952380073}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0B0A6460-E213-4C02-B756-4CF952380073}.Release|Any CPU.Build.0 = Release|Any CPU
+		{78FF78DE-0C89-465D-A865-803D3DCE8075}.DebugWPF|Any CPU.ActiveCfg = DebugWPF|Any CPU
+		{78FF78DE-0C89-465D-A865-803D3DCE8075}.DebugWPF|Any CPU.Build.0 = DebugWPF|Any CPU
 		{78FF78DE-0C89-465D-A865-803D3DCE8075}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{78FF78DE-0C89-465D-A865-803D3DCE8075}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{78FF78DE-0C89-465D-A865-803D3DCE8075}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{78FF78DE-0C89-465D-A865-803D3DCE8075}.Release|Any CPU.Build.0 = Release|Any CPU
+		{95D4CFC2-58DD-4B58-B32D-7AA278B1C761}.DebugWPF|Any CPU.ActiveCfg = Debug
 		{95D4CFC2-58DD-4B58-B32D-7AA278B1C761}.Debug|Any CPU.ActiveCfg = Debug
 		{95D4CFC2-58DD-4B58-B32D-7AA278B1C761}.Debug|Any CPU.Build.0 = Debug
 		{95D4CFC2-58DD-4B58-B32D-7AA278B1C761}.Release|Any CPU.ActiveCfg = Release
 		{95D4CFC2-58DD-4B58-B32D-7AA278B1C761}.Release|Any CPU.Build.0 = Release
+		{D94E83EC-6B1A-444D-B276-BE4003545FEC}.DebugWPF|Any CPU.ActiveCfg = DebugWPF|Any CPU
+		{D94E83EC-6B1A-444D-B276-BE4003545FEC}.DebugWPF|Any CPU.Build.0 = DebugWPF|Any CPU
+		{D94E83EC-6B1A-444D-B276-BE4003545FEC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D94E83EC-6B1A-444D-B276-BE4003545FEC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D94E83EC-6B1A-444D-B276-BE4003545FEC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D94E83EC-6B1A-444D-B276-BE4003545FEC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

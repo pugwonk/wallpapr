@@ -282,7 +282,7 @@ namespace WallpaperFlickr {
 
                 //Image mainicon = Properties.Resources.flickr.ToBitmap;
                 //Image mainicon = Properties.Resources.flickr.ToBitmap();
-                Image waiticon = Properties.Resources.flickrwait.ToBitmap();
+                Image waiticon = WallpaperFlickr.Properties.Resources.flickrwait.ToBitmap();
                 gr.DrawImage(waiticon, new Rectangle(0, 0, 16, 16));
 
                 Image original = Image.FromFile(p);
