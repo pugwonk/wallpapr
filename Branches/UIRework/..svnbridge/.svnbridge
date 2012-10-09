@@ -1,0 +1,6 @@
+﻿<?xml version="1.0" encoding="utf-8"?><ItemProperties xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"><Properties><Property><Name>svn:ignore</Name><Value>_UpgradeReport_Files
+UpgradeLog2.htm
+UpgradeLog2.XML
+*.user
+*.suo
+</Value></Property></Properties></ItemProperties>
