@@ -108,7 +108,7 @@ namespace WallpaperFlickr {
         {
             _ApiKey = "e771a253347e1cdda688de15eeb292f6"; 
 
-            var settingsPath = Program.MyPath() + "\\WallpaperFlickrSettings.xml";
+            var settingsPath = FileSystem.MyPath() + "\\WallpaperFlickrSettings.xml";
             //Just exit if no settings folder
             if (File.Exists(settingsPath) == false)
                 return;
@@ -187,7 +187,7 @@ namespace WallpaperFlickr {
         public void SaveSettings() {
             if (Dirty)
             {
-                XmlTextWriter tw = new XmlTextWriter(Program.MyPath() + "\\WallpaperFlickrSettings.xml", System.Text.Encoding.UTF8);
+                XmlTextWriter tw = new XmlTextWriter(FileSystem.MyPath() + "\\WallpaperFlickrSettings.xml", System.Text.Encoding.UTF8);
                 tw.Formatting = Formatting.Indented;
                 tw.WriteStartDocument(false);
                 tw.WriteStartElement("settings");

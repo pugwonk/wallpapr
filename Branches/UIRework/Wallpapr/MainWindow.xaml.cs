@@ -10,6 +10,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Avalon.Windows.Controls;
+using WallpaperFlickr;
 
 namespace WallPapr
 {
@@ -21,6 +23,28 @@ namespace WallPapr
         public MainWindow()
         {
             InitializeComponent();
+            _viewModel = new Form1ViewModel();
+            DataContext = _viewModel;
         }
+
+        private Form1ViewModel _viewModel;
+
+        private void _notifyIcon_Click(object sender, RoutedEventArgs e)
+        {            
+            var notifyIcon = this.FindName("notifyIcon") as NotifyIcon;
+            notifyIcon.ContextMenu.IsOpen = true;
+        }
+
+        private void MenuItem_ClickSettings(object sender, RoutedEventArgs e)
+        {
+            this.WindowState = WindowState.Normal;
+            this.BringIntoView();
+        }
+
+        private void MenuItem_ClickGetNewPaper(object sender, RoutedEventArgs e)
+        {
+            _viewModel.GetNewWallpaper();
+        }
+
     }
 }

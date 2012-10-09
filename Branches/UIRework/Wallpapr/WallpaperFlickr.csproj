@@ -93,6 +93,7 @@
     <Compile Include="BitmapHolder.cs" />
     <Compile Include="clsWallpaper.cs" />
     <Compile Include="Converter.cs" />
+    <Compile Include="FileSystem.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>
