@@ -49,8 +49,9 @@ namespace WallpaperFlickr {
 
             numFrequency.Value = _viewModel.Frequency;
             ddInterval.Text = _viewModel.Interval;
-            ddOrderBy.Text = _viewModel.OrderBy;
             ddPosition.Text = _viewModel.Position;
+
+            ddOrderBy.Text = _viewModel.OrderBy;
             //txtApiKey.Text = settings.ApiKey;
             txtTags.Text = _viewModel.Tags;
             txtUserId.Text = _viewModel.UserId;

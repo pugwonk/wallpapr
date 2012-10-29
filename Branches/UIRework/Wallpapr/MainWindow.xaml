@@ -1,8 +1,11 @@
 ﻿<Window
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:Controls="clr-namespace:Avalon.Windows.Controls" x:Class="WallPapr.MainWindow"
-        Title="WallPapr" Height="500" Width="460" Icon="Flickr.png" WindowState="Minimized"   >
+        xmlns:Controls="clr-namespace:Avalon.Windows.Controls"
+    xmlns:Wallpapr="clr-namespace:WallpaperFlickr"
+    xmlns:System="clr-namespace:System;assembly=mscorlib"    
+    x:Class="WallPapr.MainWindow"    
+        Title="WallPapr" Height="500" Width="460" Icon="Flickr.png" WindowState="Minimized" Closing="Window_Closing_1" SizeChanged="Window_SizeChanged_1"   >
 
     <Window.Resources>
 
@@ -36,60 +39,57 @@
     <StackPanel >
         <Grid>
             <Label Content="Rotate every:" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="10"/>
-            <TextBox Text="1" HorizontalAlignment="Left" VerticalAlignment="Top" 
-        		Height="23" Width="60" Margin="93.89,12.96,0,0"
+            <TextBox Text="{Binding Frequency,UpdateSourceTrigger=PropertyChanged}" 
+                     HorizontalAlignment="Left" VerticalAlignment="Top" Height="23" Width="60" Margin="93.89,12.96,0,0"
         		VerticalContentAlignment="Center"/>
-            <ComboBox HorizontalAlignment="Left" VerticalAlignment="Top" Margin="158.89,12.96,0,0" SelectedIndex="0" Height="23" Width="75">
-                <ComboBoxItem Content="minutes"/>
-                <ComboBoxItem Content="hours"/>
-                <ComboBoxItem Content="days"/>
-                <ComboBoxItem Content="weeks"/>
-                <ComboBoxItem Content="months"/>
+            <ComboBox  SelectedIndex="{Binding Interval}"
+                HorizontalAlignment="Left" VerticalAlignment="Top" Margin="158.89,12.96,0,0" Height="23" Width="75"  
+                       ItemsSource="{Binding Intervals}">
             </ComboBox>
-            <Button Content="Rotate now" HorizontalAlignment="Left" VerticalAlignment="Top" 
+            <Button Content="Rotate now" 
+                    Command="{Binding RotateNowCommand}"
+                    HorizontalAlignment="Left" VerticalAlignment="Top" 
         		Style="{StaticResource ResourceKey=LinkButtonStyle}"
         		Margin="273.89,16.48,0,0"/>
 
             <Label Content="Position:" HorizontalAlignment="Left" VerticalAlignment="Top"
         		Margin="33.746,38.96,0,10"/>
-            <ComboBox HorizontalAlignment="Left" VerticalAlignment="Top" Margin="93.89,40.96,0,10" SelectedIndex="0" Height="23" Width="75">
-                <ComboBoxItem Content="Centred"/>
-                <ComboBoxItem Content="Tiled"/>
-                <ComboBoxItem Content="Stretched"/>
-                <ComboBoxItem Content="Fill"/>
-                <ComboBoxItem Content="Fit"/>
+            <ComboBox 
+                SelectedIndex="{Binding Position}" 
+                HorizontalAlignment="Left" VerticalAlignment="Top" Margin="93.89,40.96,0,10" Height="23" Width="75"
+                ItemsSource="{Binding Positions}" >
             </ComboBox>
         </Grid>
         <GroupBox Header="Photo selection" Margin="10">
             <StackPanel Margin="10">
                 <StackPanel Orientation="Horizontal" Margin="0,10">
-                    <RadioButton Content="Search" HorizontalAlignment="Left"  VerticalAlignment="Top" Margin="0,6" GroupName="PhotoSelection"/>
+                    <RadioButton Content="Search" 
+                                 IsChecked="{Binding PhotoSourceIsSearch}"
+                                 HorizontalAlignment="Left"  VerticalAlignment="Top" Margin="0,6" />
                     <Grid x:Name="panel1" HorizontalAlignment="Stretch">
                         <Label Content="Tags: (comma delimited)" Margin="5,0,0,0"/>
-                        <TextBox HorizontalAlignment="Stretch" VerticalAlignment="Top" Margin="10,22.96,10,0" />
-                        <RadioButton Content="Match all tags" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,55.92,0,0"/>
-                        <RadioButton Content="Match any tag" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="108.11,55.92,0,0"/>
+                        <TextBox HorizontalAlignment="Stretch" VerticalAlignment="Top" Margin="10,22.96,10,0" Text="{Binding Tags}" />
+                        <RadioButton Content="Match all tags" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,55.92,0,0" IsChecked="{Binding TagModeIsAll}"/>
+                        <RadioButton Content="Match any tag" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="108.11,55.92,0,0" IsChecked="{Binding TagModeIsAny}"/>
                         <Label Content="Pick from:" 
                                HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,80.88,0,0"/>
-                        <ComboBox 
-                            HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,106.84,0,10"  SelectedIndex="0" Width="133">
-                            <ComboBoxItem Content="Newly posted"/>
-                            <ComboBoxItem Content="Most recently taken"/>
-                            <ComboBoxItem Content="Most interesting"/>
-                            <ComboBoxItem Content="None"/>
-                            <ComboBoxItem Content="Relevance"/>
-                        </ComboBox>
+                        <ComboBox SelectedIndex="{Binding OrderByIndex}" ItemsSource="{Binding OrderByOptions}"
+                            HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,106.84,0,10"  Width="133" />
                         <Label Content="User names: (comma delimited)" 
                         		HorizontalAlignment="Left" VerticalAlignment="Top" Margin="153,80.88,0,0"/>
-                        <TextBox HorizontalAlignment="Left" VerticalAlignment="Top" Margin="153,108.84,10,0" Width="177.253"/>
+                        <TextBox Text="{Binding UserId}"
+                            HorizontalAlignment="Left" VerticalAlignment="Top" Margin="153,108.84,10,0" Width="177.253"/>
                     </Grid>
                 </StackPanel>
                 <StackPanel Orientation="Horizontal" Margin="0,10">
-                    <RadioButton Content="Show favourites for user:" Margin="0,0,10,0" VerticalAlignment="Center" GroupName="PhotoSelection"/>
-                    <TextBox MinWidth="150" Text="hello"/>
+                    <RadioButton Content="Show favourites for user:" 
+                                 IsChecked ="{Binding PhotoSourceIsFavourites}" Margin="0,0,10,0" VerticalAlignment="Center" />
+                    <TextBox MinWidth="150" Text="{Binding FaveUserId}"/>
                 </StackPanel>
                 <StackPanel Orientation="Horizontal" Margin="0,10">
-                    <RadioButton Content="Interesting photos uploaded recently" GroupName="PhotoSelection"/>
+                    <RadioButton Content="Interesting photos uploaded recently" 
+                                 IsChecked="{Binding PhotoSourceIsInteresting}"
+                                 />
 
                 </StackPanel>
             </StackPanel>
@@ -101,7 +101,7 @@
                 <ContextMenu x:Name="trayMenu">
                     <MenuItem Header="Settings..." 
                               Click="MenuItem_ClickSettings" />
-                    <MenuItem Header="Get new wallpaper" FontWeight="Bold" Click="MenuItem_ClickGetNewPaper"
+                    <MenuItem Header="Get new wallpaper" FontWeight="Bold" Command="{Binding RotateNowCommand}"
                              />
                     <MenuItem Header="This photo on flickr.com..." Click="MenuItem_ClickGoFlickURL"/>
                     <MenuItem Header="Exit" Click="MenuItem_ClickExit"/>
@@ -110,14 +110,14 @@
         </Controls:NotifyIcon>
 
         <Grid VerticalAlignment="Bottom">
-            <Button Content="OK" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,10" Width="75" Height="23" />
-            <TextBlock Text="label8" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="10,0,0,34.96"/>
+            <Button Content="OK" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,10" Width="75" Height="23" Click="Button_Click_1" />
+            <TextBlock Text="{Binding Version, StringFormat='Version {0}'}" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="10,0,0,34.96"/>
             <Button Content="http://wallpapr.codeplex.com" HorizontalAlignment="Left" VerticalAlignment="Bottom"
         		Style="{StaticResource LinkButtonStyle}"
         		Margin="10,0,0,13.999"  />
-            <CheckBox Content="Start with Windows" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="10"/>
-            <CheckBox Content="Cache pictures" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,30.098,35.23,0"/>
-            <CheckBox Content="Show info-bubbles" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,50.196,12.903,10"/>
+            <CheckBox Content="Start with Windows" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="10" IsChecked="{Binding StartWithWindows}"/>
+            <CheckBox Content="Cache pictures" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,30.098,35.23,0" IsChecked="{Binding CachePics}"/>
+            <CheckBox Content="Show info-bubbles" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,50.196,12.903,10" IsChecked="{Binding ShowBubbles}"/>
         </Grid>
 
 
