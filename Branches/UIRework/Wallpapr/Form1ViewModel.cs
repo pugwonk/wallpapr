@@ -1,123 +1,369 @@
 ﻿using System;
+using System.Linq;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
+using WallpaperFlickr.MicroMVVM;
+using System.Reflection;
+using Microsoft.Win32;
 
 namespace WallpaperFlickr
 {
     //Todo: Rename me - this is an awful name
-    public class Form1ViewModel
+    public class Form1ViewModel : INotifyPropertyChanged
     {
-        public Form1ViewModel()
-        {
-            _settings = new WallpaperFlickrSettings();
-            _settings.ReadSettings();
-        }
+        [System.Runtime.InteropServices.DllImport("user32.dll")]
+        extern static bool DestroyIcon(IntPtr handle);
 
+        private bool _isNotifyFail;
+        private Icon _notifyIconIcon;
+        private string _notifyIconBalloonTipTitle;
+        private string _notifyIconText;
+        private string _notifyIconBalloonTipText;
         private WallpaperFlickrSettings _settings;
 
+        private Timer _timer = new Timer { Interval = 60000 };
+
+        public Form1ViewModel()
+        {
+            // _ is a variable name, it's becoming a standard for something that is ignored
+            RotateNowCommand = new MicroCommand(
+                       _ => true,
+                       _ => this.GetNewWallpaper()
+                   );
+
+            OKCommand = new MicroCommand(
+                        _ => true,
+                        _ => this.DoOk()
+                    );
+
+            _settings = new WallpaperFlickrSettings();
+            _settings.ReadSettings();
+
+            _timer.Tick += _timer_Tick;
+            _timer.Start();            
+        }
+
+        void _timer_Tick(object sender, EventArgs e)
+        {
+            SaveSettings();
+            if (HasExpired())
+            {
+                GetNewWallpaper();
+            }
+        }
+
+        private void DoOk()
+        {
+            SaveSettings();
+            GetNewWallpaper();
+        }
 
         public int Frequency
         {
             get { return _settings.Frequency; }
-            set { _settings.Frequency = value; }
+            set
+            {
+                _settings.Frequency = value;
+                NotifyPropertyChanged("Frequency");
+            }
         }
 
-        public string Interval
+        public IEnumerable<string> Intervals
         {
-            get { return _settings.Interval; }
-            set { _settings.Interval = value; }
+            get
+            {
+                return new string[] { 
+                    "minutes",
+                    "hours",
+                    "days",
+                    "weeks",
+                    "months"
+                };
+            }
         }
 
-        public string OrderBy
+        //Todo: Introduce Enum, just like Position
+        public int Interval
         {
-            get { return _settings.OrderBy; }
-            set { _settings.OrderBy = value; }
+            get
+            {
+                var count = 0;
+                return (from x in Intervals
+                        let index = count++
+                        where String.Compare(x, _settings.Interval, true) == 0
+                        select index).Single();
+            }
+            set
+            {
+                _settings.Interval = Intervals.Skip(value).First();
+                NotifyPropertyChanged("Interval");
+            }
         }
 
+        public IEnumerable<string> OrderByOptions
+        {
+            get
+            {
+                return new[] 
+                { 
+                    "Newly posted",
+                    "Most recently taken",
+                    "Most interesting",
+                    "None",
+                    "Relevance" 
+                };
+            }
+        }
+
+        public int OrderByIndex
+        {
+            get
+            {
+                var index = 0;
+                var result = (from x in OrderByOptions
+                              let count = index++
+                              where string.Compare(x, _settings.OrderBy, true) == 0
+                              select count).Single();
+                return result;
+            }
+            set
+            {
+                _settings.OrderBy = OrderByOptions.Skip(value).First();
+                NotifyPropertyChanged("OrderBy");
+            }
+        }
 
         public string ApiKey
         {
             get { return _settings.ApiKey; }
-            set { _settings.ApiKey = value; }
+            set
+            {
+                _settings.ApiKey = value;
+                NotifyPropertyChanged("ApiKey");
+            }
         }
 
-        public string Position
+        public IEnumerable<string> Positions
         {
-            get { return _settings.Position; }
-            set { _settings.Position = value; }
+            get
+            {
+                return Enum.GetNames(typeof(winWallpaper.Style));
+            }
+        }
+
+        public int Position
+        {
+            get
+            {
+                return (int)getDisplayStyle();
+            }
+            set
+            {
+                _settings.Position = Enum.GetName(typeof(winWallpaper.Style), (winWallpaper.Style)value);
+                NotifyPropertyChanged("Position");
+            }
+        }
+
+        private winWallpaper.Style getDisplayStyle()
+        {
+            return (winWallpaper.Style)Enum.Parse(typeof(winWallpaper.Style), _settings.Position);
         }
 
         public string Tags
         {
             get { return _settings.Tags; }
-            set { _settings.Tags = value; }
+            set
+            {
+                _settings.Tags = value;
+                NotifyPropertyChanged("Tags");
+            }
         }
 
         public string UserId
         {
             get { return _settings.UserId; }
-            set { _settings.UserId = value; }
+            set
+            {
+                _settings.UserId = value;
+                NotifyPropertyChanged("UserId");
+            }
         }
 
         public string FaveUserId
         {
             get { return _settings.FaveUserId; }
-            set { _settings.FaveUserId = value; }
+            set
+            {
+                _settings.FaveUserId = value;
+                NotifyPropertyChanged("FaveUserId");
+            }
         }
 
-        public int SearchOrFaves
+        public bool PhotoSourceIsSearch
         {
-            get { return _settings.SearchOrFaves; }
-            set { _settings.SearchOrFaves = value; }
+            get { return _settings.SearchOrFaves == 0; }
+            set
+            {
+                if (value)
+                {
+                    _settings.SearchOrFaves = 0;
+                    NotifyPhotoSource();
+                }
+            }
         }
+
+        private void NotifyPhotoSource()
+        {
+            NotifyPropertyChanged("PhotoSourceIsSearch"); ;
+            NotifyPropertyChanged("PhotoSourceIsInteresting");
+            NotifyPropertyChanged("PhotoSourceIsFavourites");
+        }
+
+        public bool PhotoSourceIsFavourites
+        {
+            get { return _settings.SearchOrFaves == 1; }
+            set
+            {
+                if (value)
+                {
+                    _settings.SearchOrFaves = 1;
+                    NotifyPhotoSource();
+                }
+            }
+        }
+
+        public bool PhotoSourceIsInteresting
+        {
+            get { return _settings.SearchOrFaves == 2; }
+            set
+            {
+                if (value)
+                {
+                    _settings.SearchOrFaves = 2;
+                    NotifyPhotoSource();
+                }
+            }
+        }
+
 
         public bool StartWithWindows
         {
             get { return _settings.StartWithWindows; }
-            set { _settings.StartWithWindows = value; }
+            set
+            {
+                _settings.StartWithWindows = value;
+                NotifyPropertyChanged("StartWithWindows");
+            }
         }
 
         public bool CachePics
         {
             get { return _settings.CachePics; }
-            set { _settings.CachePics = value; }
+            set
+            {
+                _settings.CachePics = value;
+                NotifyPropertyChanged("CachePics");
+            }
         }
 
         public bool ShowBubbles
         {
             get { return _settings.ShowBubbles; }
-            set { _settings.ShowBubbles = value; }
+            set
+            {
+                _settings.ShowBubbles = value;
+                NotifyPropertyChanged("ShowBubbles");
+            }
+        }
+
+        public bool TagModeIsAll
+        {
+            get { return string.Compare(TagMode, "all", true) == 0; }
+            set
+            {
+                if (value)
+                {
+                    TagMode = "all";
+                    NotifyTagMode();
+                }
+            }
+        }
+
+        public bool TagModeIsAny
+        {
+            get { return !TagModeIsAll; }
+            set
+            {
+                if (value)
+                {
+                    TagMode = "any";
+                    NotifyTagMode();
+                }
+            }
+        }
+
+
+        private void NotifyTagMode()
+        {
+            NotifyPropertyChanged("TagModeIsAll");
+            NotifyPropertyChanged("TagModeIsAny");
         }
 
         public string TagMode
         {
             get { return _settings.TagMode; }
-            set { _settings.TagMode = value; }
+            set
+            {
+                _settings.TagMode = value;
+                NotifyPropertyChanged("TagMode");
+            }
         }
 
         public WallpaperFlickrSettings Settings { get { return _settings; } }
 
         internal bool HasExpired()
         {
-
             return _settings.HasExpired();
         }
 
         internal void SaveSettings()
         {
             _settings.SaveSettings();
+
+            RegistryKey myKey = Registry.CurrentUser.OpenSubKey("Software\\Microsoft\\Windows\\CurrentVersion\\Run", true);
+            if (StartWithWindows)
+            {
+                myKey.SetValue("WallpaperFlickr",
+                    System.Reflection.Assembly.GetExecutingAssembly().Location,
+                    RegistryValueKind.String);
+            }
+            else
+            {
+                try
+                {
+                    myKey.DeleteValue("WallpaperFlickr");
+                }
+                catch
+                {
+                }
+            }
+
         }
 
         public string WebURL
         {
             get { return _settings.WebURL; }
-            set { _settings.WebURL = value; }
+            set
+            {
+                _settings.WebURL = value;
+                NotifyPropertyChanged("WebURL");
+            }
         }
-
 
         public void GetNewWallpaper()
         {
@@ -138,7 +384,7 @@ namespace WallpaperFlickr
 
             FlickrNet.PhotoCollection photos = null;
 
-            switch (SearchOrFaves)
+            switch (_settings.SearchOrFaves)
             {
                 case 0:
                     FlickrNet.PhotoSearchOptions options = new FlickrNet.PhotoSearchOptions();
@@ -288,7 +534,9 @@ namespace WallpaperFlickr
                 NotifyIconBalloonTipText = fi.DateTaken.ToLongDateString() +
                     location + "\n" + description;
                 NotifyIconBalloonTipTitle = photos[chosePhoto].Title;
-                //notifyIcon1.Visible = true; //Always visible
+
+                if (ShowBubbles)
+                    NotifyPropertyChanged("PopupBalloon");
 
             }
 
@@ -303,10 +551,17 @@ namespace WallpaperFlickr
             NotifyIconText = ex.Message.Substring(0, Math.Min(ex.Message.Length, 63));
             NotifyIconIcon = WallpaperFlickr.Properties.Resources.flickrbad;
             IsNotifyFail = true;
+            if (ShowBubbles)
+                NotifyPropertyChanged("PopupBalloon");
         }
 
-        [System.Runtime.InteropServices.DllImport("user32.dll")]
-        extern static bool DestroyIcon(IntPtr handle);
+        public string Version
+        {
+            get
+            {
+                return Assembly.GetExecutingAssembly().GetName().Version.ToString();
+            }
+        }
 
         private Icon TinyPictureVersion(string p)
         {
@@ -349,20 +604,23 @@ namespace WallpaperFlickr
             //return retv;
         }
 
-
         private FlickrNet.PhotoSearchSortOrder GetSortOrder()
         {
-            switch (OrderBy)
+            switch (_settings.OrderBy)
             {
-                //case "Date Posted Asc": return FlickrNet.PhotoSearchSortOrder.DatePostedAsc;
-                case "Newly Posted": return FlickrNet.PhotoSearchSortOrder.DatePostedDescending;
-                //case "Date Taken Asc": return FlickrNet.PhotoSearchSortOrder.DateTakenAsc;
-                case "Most Recently Taken": return FlickrNet.PhotoSearchSortOrder.DateTakenDescending;
-                //case "Interestingness Asc": return FlickrNet.PhotoSearchSortOrder.InterestingnessAsc;
-                case "Most Interesting": return FlickrNet.PhotoSearchSortOrder.InterestingnessDescending;
-                case "None": return FlickrNet.PhotoSearchSortOrder.None;
-                case "Relevance": return FlickrNet.PhotoSearchSortOrder.Relevance;
-                default: return FlickrNet.PhotoSearchSortOrder.InterestingnessAscending;
+                case "Newly Posted":
+                    return FlickrNet.PhotoSearchSortOrder.DatePostedDescending;
+                case "Most Recently Taken":
+                    return FlickrNet.PhotoSearchSortOrder.DateTakenDescending;
+                case "Most Interesting":
+                    return FlickrNet.PhotoSearchSortOrder.InterestingnessDescending;
+                case "None":
+                    return FlickrNet.PhotoSearchSortOrder.None;
+                case "Relevance":
+                    return FlickrNet.PhotoSearchSortOrder.Relevance;
+                default:
+                    //Erm this doesn't match a current option????
+                    return FlickrNet.PhotoSearchSortOrder.InterestingnessAscending;
             }
         }
 
@@ -371,41 +629,79 @@ namespace WallpaperFlickr
             switch (TagMode)
             {
                 case "all": return FlickrNet.TagMode.AllTags;
-                case "any": return FlickrNet.TagMode.AnyTag;
+                case "any":
                 default: return FlickrNet.TagMode.AnyTag;
             }
         }
 
-        private winWallpaper.Style getDisplayStyle()
+        public bool IsNotifyFail
         {
-            switch (Position.ToLower())
+            get { return _isNotifyFail; }
+            set
             {
-                case "centered": return winWallpaper.Style.Centered;
-                case "tiled": return winWallpaper.Style.Tiled;
-                case "stretched": return winWallpaper.Style.Stretched;
-                case "fill": return winWallpaper.Style.Fill;
-                case "fit": return winWallpaper.Style.Fit;
-                default: return winWallpaper.Style.Stretched;
+                _isNotifyFail = value;
+                NotifyPropertyChanged("IsNotifyFail");
             }
         }
 
+        public string NotifyIconBalloonTipText
+        {
+            get { return _notifyIconBalloonTipText; }
+            set
+            {
+                _notifyIconBalloonTipText = value;
+                NotifyPropertyChanged("NotifyIconBalloonTipText");
+            }
+        }
 
-        public bool IsNotifyFail { get; set; }
+        public string NotifyIconText
+        {
+            get { return _notifyIconText; }
+            set
+            {
+                _notifyIconText = value;
+                NotifyPropertyChanged("NotifyIconText");
+            }
+        }
 
-        public string NotifyIconBalloonTipText { get; set; }
+        public string NotifyIconBalloonTipTitle
+        {
+            get { return _notifyIconBalloonTipTitle; }
+            set
+            {
+                _notifyIconBalloonTipTitle = value;
+                NotifyPropertyChanged("NotifyIconBalloonTipTitle");
+            }
+        }
 
-        public string NotifyIconText { get; set; }
-
-        public string NotifyIconBalloonTipTitle { get; set; }
-
-        public Icon NotifyIconIcon { get; set; }
-
+        public Icon NotifyIconIcon
+        {
+            get { return _notifyIconIcon; }
+            set
+            {
+                _notifyIconIcon = value;
+                NotifyPropertyChanged("NotifyIconIcon");
+            }
+        }
 
         public void GotoFlickrURL()
         {
             System.Diagnostics.Process.Start(WebURL);
         }
 
+        public event PropertyChangedEventHandler PropertyChanged;
 
+        private void NotifyPropertyChanged(string propertyName)
+        {
+            var temp = PropertyChanged;
+            if (temp != null)
+            {
+                temp(this, new PropertyChangedEventArgs(propertyName));
+            }
+        }
+
+        public MicroCommand RotateNowCommand { get; set; }
+
+        public MicroCommand OKCommand { get; set; }
     }
 }
