@@ -81,7 +81,8 @@ namespace WallpaperFlickr
             set { _settings.StartWithWindows = value; }
         }
 
-        public bool CachePics      {
+        public bool CachePics
+        {
             get { return _settings.CachePics; }
             set { _settings.CachePics = value; }
         }
@@ -398,5 +399,13 @@ namespace WallpaperFlickr
         public string NotifyIconBalloonTipTitle { get; set; }
 
         public Icon NotifyIconIcon { get; set; }
+
+
+        public void GotoFlickrURL()
+        {
+            System.Diagnostics.Process.Start(WebURL);
+        }
+
+
     }
 }

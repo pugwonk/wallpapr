@@ -3,4 +3,11 @@ UpgradeLog2.htm
 UpgradeLog2.XML
 *.user
 *.suo
+</Value></Property><Property><Name>svn:ignore</Name><Value>_UpgradeReport_Files
+UpgradeLog2.htm
+UpgradeLog2.XML
+*.user
+*.suo
+.hg
+.hgignore
 </Value></Property></Properties></ItemProperties>

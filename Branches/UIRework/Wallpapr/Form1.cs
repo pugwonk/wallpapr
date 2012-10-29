@@ -222,8 +222,10 @@ namespace WallpaperFlickr {
 
         private void thisPhotoOnFlickrcomToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            System.Diagnostics.Process.Start(_viewModel.WebURL);
+            _viewModel.GotoFlickrURL();
         }
+
+     
 
         private void rbSearch_CheckedChanged(object sender, EventArgs e)
         {
