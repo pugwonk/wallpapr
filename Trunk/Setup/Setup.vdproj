@@ -161,11 +161,6 @@
             "AssemblyAsmDisplayName" = "8:FlickrNet, Version=3.13.0.0, Culture=neutral, PublicKeyToken=2491df59efa5d132, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
-                    "_7723EC4F1C73E64E5FA57552BE030153"
-                    {
-                    "Name" = "8:FlickrNet.dll"
-                    "Attributes" = "3:512"
-                    }
                 }
             "SourcePath" = "8:FlickrNet.dll"
             "TargetName" = "8:"
@@ -190,7 +185,7 @@
             "SourcePath" = "8:..\\Wallpapr\\WallpaperFlickrSettings.xml"
             "TargetName" = "8:WallpaperFlickrSettings.xml"
             "Tag" = "8:"
-            "Folder" = "8:_DCC731A2CB5544F18F0AFF2C9CB9085E"
+            "Folder" = "8:_73F47A5C03664529814758486E597A17"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"

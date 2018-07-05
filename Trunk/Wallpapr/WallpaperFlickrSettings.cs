@@ -109,12 +109,19 @@ namespace WallpaperFlickr {
             _ApiKey = "e771a253347e1cdda688de15eeb292f6"; 
 
             var settingsPath = Program.MyPath() + "\\WallpaperFlickrSettings.xml";
-            //Just exit if no settings folder
-            if (File.Exists(settingsPath) == false)
-                return;
-
             XmlDocument xml = new XmlDocument();
-            xml.Load(settingsPath);
+            try
+            {
+                xml.Load(settingsPath);
+
+            }
+            catch (Exception)
+            {
+                // Settings failed to load - use defaults
+                string path = System.Reflection.Assembly.GetExecutingAssembly().CodeBase;
+                var directory = System.IO.Path.GetDirectoryName(path);
+                xml.Load(directory + "\\WallpaperFlickrSettings.xml");
+            }
             //MessageBox.Show(Program.MyPath());
             //_ApiKey = xml.GetElementsByTagName("apikey").Item(0).InnerText;
             if (xml.GetElementsByTagName("userid").Count > 0)
