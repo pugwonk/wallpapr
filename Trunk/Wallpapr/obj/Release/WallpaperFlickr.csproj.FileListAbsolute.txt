@@ -3,3 +3,15 @@ C:\Users\Chris\Documents\GitHub\wallpapr\Trunk\Wallpapr\obj\Release\WallpaperFli
 C:\Users\Chris\Documents\GitHub\wallpapr\Trunk\Wallpapr\obj\Release\WallpaperFlickr.Version2.resources
 C:\Users\Chris\Documents\GitHub\wallpapr\Trunk\Wallpapr\obj\Release\WallpaperFlickr.csproj.GenerateResource.cache
 C:\Users\Chris\Documents\GitHub\wallpapr\Trunk\Wallpapr\obj\Release\WallpaperFlickr.csproj.CoreCompileInputs.cache
+C:\Users\Chris\Documents\GitHub\wallpapr\Trunk\Wallpapr\bin\Release\WallpaperFlickrSettings.xml
+C:\Users\Chris\Documents\GitHub\wallpapr\Trunk\Wallpapr\bin\Release\Wallpapr.exe.config
+C:\Users\Chris\Documents\GitHub\wallpapr\Trunk\Wallpapr\bin\Release\Wallpapr.exe.manifest
+C:\Users\Chris\Documents\GitHub\wallpapr\Trunk\Wallpapr\bin\Release\Wallpapr.application
+C:\Users\Chris\Documents\GitHub\wallpapr\Trunk\Wallpapr\bin\Release\Wallpapr.exe
+C:\Users\Chris\Documents\GitHub\wallpapr\Trunk\Wallpapr\bin\Release\FlickrNet.dll
+C:\Users\Chris\Documents\GitHub\wallpapr\Trunk\Wallpapr\obj\Release\WallpaperFlickr.csprojAssemblyReference.cache
+C:\Users\Chris\Documents\GitHub\wallpapr\Trunk\Wallpapr\obj\Release\Wallpapr.TrustInfo.xml
+C:\Users\Chris\Documents\GitHub\wallpapr\Trunk\Wallpapr\obj\Release\Wallpapr.exe.manifest
+C:\Users\Chris\Documents\GitHub\wallpapr\Trunk\Wallpapr\obj\Release\Wallpapr.application
+C:\Users\Chris\Documents\GitHub\wallpapr\Trunk\Wallpapr\obj\Release\WallpaperFlickr.csproj.CopyComplete
+C:\Users\Chris\Documents\GitHub\wallpapr\Trunk\Wallpapr\obj\Release\Wallpapr.exe
