@@ -8,6 +8,8 @@ If you're more picky than just that, you can choose pictures using a keyword sea
 
 ![](http://chrisrae.com/hosting/wallpaperflickr/7.png) ![](http://chrisrae.com/hosting/wallpaperflickr/8.png) ![](http://chrisrae.com/hosting/wallpaperflickr/9.png)  
 
+To download the current version, visit the [Release page](https://github.com/pugwonk/wallpapr/releases).
+
 Requires [Microsoft .NET Framework 2.0](http://www.microsoft.com/downloads/details.aspx?FamilyID=0856eacb-4362-4b0d-8edd-aab15c5e04f5&displaylang=en) (most PCs already have this). Photos on this page courtesy of [dougerino](http://www.flickr.com/photos/dougerino) and [pugwonk](http://www.flickr.com/photos/22959236@N00/).
 
 This project was migrated from CodePlex. Note that there are some [issues still on CodePlex](https://wallpapr.codeplex.com/workitem/list/basic). The CodePlex migration tool is apparently going to be updated soon to import issues, so I'm holding off for that. (May 2017)
