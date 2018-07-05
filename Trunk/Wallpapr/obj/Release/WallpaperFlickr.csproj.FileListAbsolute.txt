@@ -1,0 +1,5 @@
+C:\Users\Chris\Documents\GitHub\wallpapr\Trunk\Wallpapr\obj\Release\WallpaperFlickr.Form1.resources
+C:\Users\Chris\Documents\GitHub\wallpapr\Trunk\Wallpapr\obj\Release\WallpaperFlickr.Properties.Resources.resources
+C:\Users\Chris\Documents\GitHub\wallpapr\Trunk\Wallpapr\obj\Release\WallpaperFlickr.Version2.resources
+C:\Users\Chris\Documents\GitHub\wallpapr\Trunk\Wallpapr\obj\Release\WallpaperFlickr.csproj.GenerateResource.cache
+C:\Users\Chris\Documents\GitHub\wallpapr\Trunk\Wallpapr\obj\Release\WallpaperFlickr.csproj.CoreCompileInputs.cache

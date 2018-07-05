@@ -69,8 +69,8 @@
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="FlickrNet">
-      <HintPath>..\packages\FlickrNet.3.13.0\lib\net20\FlickrNet.dll</HintPath>
+    <Reference Include="FlickrNet, Version=3.25.0.0, Culture=neutral, PublicKeyToken=2491df59efa5d132, processorArchitecture=MSIL">
+      <HintPath>..\packages\FlickrNet.3.25.0\lib\net20\FlickrNet.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
